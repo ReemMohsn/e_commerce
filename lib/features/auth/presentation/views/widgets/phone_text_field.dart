@@ -1,4 +1,4 @@
-import 'package:e_commeric/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
 
 class PhoneTextField extends StatelessWidget {

@@ -10,9 +10,12 @@ class HomeFilterSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.categories != current.categories ||
+          previous.brands != current.brands ||
+          previous.selectedCategorySlug != current.selectedCategorySlug ||
+          previous.selectedBrandName != current.selectedBrandName,
       builder: (context, state) {
-        if (state is! HomeSuccess) return const SizedBox.shrink();
-
         return SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.78,
           child: Column(
@@ -33,10 +36,11 @@ class HomeFilterSheet extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Filter Products',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColor.textPrimary,
-                          fontSize: 18,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppColor.textPrimary,
+                              fontSize: 18,
+                            ),
                       ),
                     ),
                     IconButton(
@@ -56,9 +60,8 @@ class HomeFilterSheet extends StatelessWidget {
                     children: [
                       Text(
                         'Category',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColor.textPrimary,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(color: AppColor.textPrimary),
                       ),
                       const SizedBox(height: 10),
                       Wrap(
@@ -87,9 +90,8 @@ class HomeFilterSheet extends StatelessWidget {
                       const SizedBox(height: 24),
                       Text(
                         'Brand',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColor.textPrimary,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(color: AppColor.textPrimary),
                       ),
                       const SizedBox(height: 10),
                       Wrap(
@@ -105,8 +107,7 @@ class HomeFilterSheet extends StatelessWidget {
                           ...state.brands.map(
                             (brand) => _FilterOption(
                               label: '${brand.emoji} ${brand.name}',
-                              isSelected:
-                                  state.selectedBrandName == brand.name,
+                              isSelected: state.selectedBrandName == brand.name,
                               onSelected: () => context
                                   .read<HomeCubit>()
                                   .filterByBrand(brand.name),

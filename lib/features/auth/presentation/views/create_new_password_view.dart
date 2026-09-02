@@ -1,19 +1,18 @@
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/constants/app_image.dart';
-import 'package:e_commeric/core/extensions/context_extension.dart';
+import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/password_reset_cubit.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/password_reset_state.dart';
-import 'package:e_commeric/features/auth/presentation/models/password_reset_arguments.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_page_header.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_page_header.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateNewPasswordView extends StatefulWidget {
-  const CreateNewPasswordView({super.key, required this.arguments});
+  const CreateNewPasswordView({super.key, required this.email});
 
-  final CreateNewPasswordArguments arguments;
+  final String email;
 
   @override
   State<CreateNewPasswordView> createState() => _CreateNewPasswordViewState();
@@ -34,7 +33,7 @@ class _CreateNewPasswordViewState extends State<CreateNewPasswordView> {
   void _savePassword() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     context.read<PasswordResetCubit>().resetPassword(
-      email: widget.arguments.email,
+      email: widget.email,
       password: _passwordController.text,
       confirmPassword: _confirmPasswordController.text,
     );

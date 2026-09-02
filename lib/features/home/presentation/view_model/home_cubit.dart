@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:e_commeric/core/services/errors/exception.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:e_commeric/features/home/data/repositories/home_repository.dart';
@@ -7,42 +5,134 @@ import 'package:e_commeric/features/home/presentation/view_model/home_state.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this._repository) : super(const HomeInitial());
+  HomeCubit(this._repository) : super(const HomeState());
 
   static const int pageSize = 10;
 
   final HomeRepository _repository;
 
-  Future<void> fetchHomeData() async {
-    if (state is HomeLoading) return;
+  Future<void> fetchCategories() async {
+    if (state.categoriesStatus == HomeRequestStatus.loading) return;
 
-    emit(const HomeLoading());
+    emit(
+      state.copyWith(
+        categoriesStatus: HomeRequestStatus.loading,
+        clearCategoriesErrorMessage: true,
+      ),
+    );
 
     try {
-      final (categoriesResponse, productsResponse, brandsResponse) = await (
-        _repository.getCategories(),
-        _repository.getProducts(skip: 0, limit: pageSize),
-        _repository.getBrands(),
-      ).wait;
-      final productsData = productsResponse.data;
-      final products = productsData?.list ?? const <ProductModel>[];
+      final response = await _repository.getCategories();
 
       emit(
-        HomeSuccess(
-          categories: categoriesResponse.data ?? const [],
-          products: products,
-          filteredProducts: products,
-          brands: brandsResponse.data ?? const [],
-          nextSkip: productsData?.nextSkip ?? 0,
-          hasMore: productsData?.hasMore ?? false,
+        state.copyWith(
+          categoriesStatus: HomeRequestStatus.success,
+          categories: response.data ?? const [],
+          clearCategoriesErrorMessage: true,
         ),
       );
     } on ServerException catch (error) {
-      emit(HomeFailure(errorMessage: error.message));
+      emit(
+        state.copyWith(
+          categoriesStatus: HomeRequestStatus.failure,
+          categoriesErrorMessage: error.message,
+        ),
+      );
     } catch (_) {
       emit(
-        const HomeFailure(
-          errorMessage: 'Unable to load home data. Please try again.',
+        state.copyWith(
+          categoriesStatus: HomeRequestStatus.failure,
+          categoriesErrorMessage:
+              'Unable to load categories. Please try again.',
+        ),
+      );
+    }
+  }
+
+  Future<void> fetchProducts() async {
+    if (state.productsStatus == HomeRequestStatus.loading ||
+        state.isLoadingMore) {
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        productsStatus: HomeRequestStatus.loading,
+        isLoadingMore: false,
+        clearProductsErrorMessage: true,
+        clearPaginationErrorMessage: true,
+      ),
+    );
+
+    try {
+      final response = await _repository.getProducts(skip: 0, limit: pageSize);
+      final productsData = response.data;
+      final products = productsData?.list ?? const <ProductModel>[];
+      final filteredProducts = _filterProducts(
+        products: products,
+        categorySlug: state.selectedCategorySlug,
+        brandName: state.selectedBrandName,
+      );
+
+      emit(
+        state.copyWith(
+          productsStatus: HomeRequestStatus.success,
+          products: products,
+          filteredProducts: filteredProducts,
+          nextSkip: productsData?.nextSkip ?? 0,
+          hasMore: productsData?.hasMore ?? false,
+          clearProductsErrorMessage: true,
+        ),
+      );
+    } on ServerException catch (error) {
+      emit(
+        state.copyWith(
+          productsStatus: HomeRequestStatus.failure,
+          productsErrorMessage: error.message,
+        ),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(
+          productsStatus: HomeRequestStatus.failure,
+          productsErrorMessage: 'Unable to load products. Please try again.',
+        ),
+      );
+    }
+  }
+
+  Future<void> fetchBrands() async {
+    if (state.brandsStatus == HomeRequestStatus.loading) return;
+
+    emit(
+      state.copyWith(
+        brandsStatus: HomeRequestStatus.loading,
+        clearBrandsErrorMessage: true,
+      ),
+    );
+
+    try {
+      final response = await _repository.getBrands();
+
+      emit(
+        state.copyWith(
+          brandsStatus: HomeRequestStatus.success,
+          brands: response.data ?? const [],
+          clearBrandsErrorMessage: true,
+        ),
+      );
+    } on ServerException catch (error) {
+      emit(
+        state.copyWith(
+          brandsStatus: HomeRequestStatus.failure,
+          brandsErrorMessage: error.message,
+        ),
+      );
+    } catch (_) {
+      emit(
+        state.copyWith(
+          brandsStatus: HomeRequestStatus.failure,
+          brandsErrorMessage: 'Unable to load brands. Please try again.',
         ),
       );
     }
@@ -50,7 +140,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> loadMoreProducts() async {
     final currentState = state;
-    if (currentState is! HomeSuccess ||
+    if (currentState.productsStatus != HomeRequestStatus.success ||
         currentState.isLoadingMore ||
         !currentState.hasMore) {
       return;
@@ -72,7 +162,7 @@ class HomeCubit extends Cubit<HomeState> {
       final incomingProducts = productsData?.list ?? const <ProductModel>[];
 
       final latestState = state;
-      if (latestState is! HomeSuccess) return;
+      if (latestState.productsStatus != HomeRequestStatus.success) return;
 
       final existingIds = latestState.products
           .map((product) => product.id)
@@ -99,7 +189,7 @@ class HomeCubit extends Cubit<HomeState> {
       );
     } on ServerException catch (error) {
       final latestState = state;
-      if (latestState is! HomeSuccess) return;
+      if (latestState.productsStatus != HomeRequestStatus.success) return;
       emit(
         latestState.copyWith(
           isLoadingMore: false,
@@ -108,7 +198,7 @@ class HomeCubit extends Cubit<HomeState> {
       );
     } catch (_) {
       final latestState = state;
-      if (latestState is! HomeSuccess) return;
+      if (latestState.productsStatus != HomeRequestStatus.success) return;
       emit(
         latestState.copyWith(
           isLoadingMore: false,
@@ -121,7 +211,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void filterByCategory(String? categorySlug) {
     final currentState = state;
-    if (currentState is! HomeSuccess) return;
+    if (currentState.productsStatus != HomeRequestStatus.success) return;
 
     final selectedCategory = _normalizeFilter(categorySlug);
     final filteredProducts = _filterProducts(
@@ -141,7 +231,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void filterByBrand(String? brandName) {
     final currentState = state;
-    if (currentState is! HomeSuccess) return;
+    if (currentState.productsStatus != HomeRequestStatus.success) return;
 
     final selectedBrand = _normalizeFilter(brandName);
     final filteredProducts = _filterProducts(
@@ -161,7 +251,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void clearFilters() {
     final currentState = state;
-    if (currentState is! HomeSuccess || !currentState.hasActiveFilters) return;
+    if (currentState.productsStatus != HomeRequestStatus.success ||
+        !currentState.hasActiveFilters) {
+      return;
+    }
 
     emit(
       currentState.copyWith(

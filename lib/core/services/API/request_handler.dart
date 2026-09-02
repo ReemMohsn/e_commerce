@@ -3,7 +3,7 @@ import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/errors/errormodel.dart';
 import 'package:e_commeric/core/services/errors/exception.dart';
 
-Future<ApiResponse<T>> repositoryRequestHandler<T>(
+Future<ApiResponse<T>> RequestHandler<T>(
   Future<Response<dynamic>> Function() request, {
   T Function(Object? data)? fromJson,
 }) async {
@@ -14,7 +14,7 @@ Future<ApiResponse<T>> repositoryRequestHandler<T>(
     if (responseBody is! Map) {
       throw ServerException(
         ErrorModel(
-          message: 'صيغة البيانات القادمة من الخادم غير مدعومة',
+          message: 'The data format coming from the server is not supported.',
           statusCode: response.statusCode ?? 0,
         ),
       );
@@ -26,7 +26,7 @@ Future<ApiResponse<T>> repositoryRequestHandler<T>(
 
     final message = rawMessage is String && rawMessage.isNotEmpty
         ? rawMessage
-        : 'تمت العملية بنجاح';
+        : 'The operation was completed successfully';
 
     final rawData = json['data'];
 

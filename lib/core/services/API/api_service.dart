@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:e_commeric/core/constants/api_link.dart';
+import 'package:e_commeric/core/constants/api_end_points.dart';
 import 'package:e_commeric/core/services/API/api_interceptors.dart';
 import 'package:e_commeric/core/services/shared_preferences_service.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +8,7 @@ class ApiService {
   ApiService(SharedPreferencesService preferencesService)
     : _dio = Dio(
         BaseOptions(
-          baseUrl: ApiLink.baseUrl,
+          baseUrl: ApiEndPoints.baseUrl,
           connectTimeout: const Duration(seconds: 30),
           receiveTimeout: const Duration(seconds: 30),
           sendTimeout: const Duration(seconds: 30),

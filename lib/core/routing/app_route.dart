@@ -1,14 +1,18 @@
 import 'package:e_commeric/core/services/app_services.dart';
+import 'package:e_commeric/features/profile/data/models/user_model.dart';
+import 'package:e_commeric/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:e_commeric/features/profile/presentation/views/edit_profile_view.dart';
+import 'package:e_commeric/features/profile/presentation/views/profile_view.dart';
+import 'package:e_commeric/features/product_details/presentation/cubit/product_details_cubit.dart';
+import 'package:e_commeric/features/product_details/presentation/views/product_details_view.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/password_reset_cubit.dart';
-import 'package:e_commeric/features/auth/presentation/models/password_reset_arguments.dart';
 import 'package:e_commeric/features/auth/presentation/views/congratulations_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/create_new_password_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/login_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/sign_up_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/verification_code_view.dart';
-import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/main_home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/views/main_home_view.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_cubit.dart';
@@ -60,22 +64,22 @@ class AppRouter {
         );
 
       case AppRoute.verificationCode:
-        final arguments = settings.arguments as VerificationCodeArguments;
+        final email = settings.arguments as String;
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => BlocProvider(
             create: (_) => PasswordResetCubit(AppServices.authRepository),
-            child: VerificationCodeView(arguments: arguments),
+            child: VerificationCodeView(email: email),
           ),
         );
 
       case AppRoute.createNewPassword:
-        final arguments = settings.arguments as CreateNewPasswordArguments;
+        final email = settings.arguments as String;
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => BlocProvider(
             create: (_) => PasswordResetCubit(AppServices.authRepository),
-            child: CreateNewPasswordView(arguments: arguments),
+            child: CreateNewPasswordView(email: email),
           ),
         );
 
@@ -88,14 +92,8 @@ class AppRouter {
       case AppRoute.mainHome:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => MainHomeCubit()),
-              BlocProvider(
-                create: (_) =>
-                    HomeCubit(AppServices.homeRepository)..fetchHomeData(),
-              ),
-            ],
+          builder: (_) => BlocProvider(
+            create: (_) => MainHomeCubit(),
             child: const MainHomeView(),
           ),
         );
@@ -106,6 +104,38 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (_) => SearchCubit(AppServices.searchRepository),
             child: const SearchView(),
+          ),
+        );
+
+      case AppRoute.productDetails:
+        final productId = settings.arguments as int;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                ProductDetailsCubit(AppServices.productDetailsRepository)
+                  ..fetchProduct(productId),
+            child: const ProductDetailsView(),
+          ),
+        );
+
+      case AppRoute.profile:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) =>
+                ProfileCubit(AppServices.profileRepository)..getCurrentUser(),
+            child: const ProfileView(),
+          ),
+        );
+
+      case AppRoute.editProfile:
+        final user = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => ProfileCubit(AppServices.profileRepository),
+            child: EditProfileView(user: user),
           ),
         );
 
@@ -125,4 +155,7 @@ class AppRoute {
   static const String congratulations = '/congratulations';
   static const String mainHome = '/main-home';
   static const String search = '/search';
+  static const String productDetails = '/product-details';
+  static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
 }

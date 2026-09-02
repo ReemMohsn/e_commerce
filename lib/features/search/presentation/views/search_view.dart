@@ -1,11 +1,12 @@
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
+import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/services/app_services.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_back_button.dart';
-import 'package:e_commeric/features/home/presentation/widgets/home_message.dart';
-import 'package:e_commeric/features/home/presentation/widgets/product_item_card.dart';
+import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
+import 'package:e_commeric/features/home/presentation/views/widgets/product_item_card.dart';
 import 'package:e_commeric/features/search/presentation/view_model/search_cubit.dart';
 import 'package:e_commeric/features/search/presentation/view_model/search_state.dart';
+import 'package:e_commeric/features/search/presentation/views/widgets/pagination_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -178,64 +179,24 @@ class _SearchViewState extends State<SearchView> {
                   mainAxisSpacing: 12,
                   mainAxisExtent: 264,
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) =>
-                      ProductItemCard(product: state.products[index]),
-                  childCount: state.products.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final product = state.products[index];
+                  return ProductItemCard(
+                    product: product,
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      AppRoute.productDetails,
+                      arguments: product.id,
+                    ),
+                  );
+                }, childCount: state.products.length),
               );
             },
           ),
         ),
-        SliverToBoxAdapter(child: _PaginationFooter(state: state)),
+        SliverToBoxAdapter(child: PaginationFooter(state: state)),
         const SliverToBoxAdapter(child: SizedBox(height: 20)),
       ],
     );
-  }
-}
-
-class _PaginationFooter extends StatelessWidget {
-  const _PaginationFooter({required this.state});
-
-  final SearchSuccess state;
-
-  @override
-  Widget build(BuildContext context) {
-    if (state.isLoadingMore) {
-      return const Padding(
-        padding: EdgeInsets.all(22),
-        child: Center(
-          child: SizedBox(
-            width: 26,
-            height: 26,
-            child: CircularProgressIndicator(strokeWidth: 2.5),
-          ),
-        ),
-      );
-    }
-
-    final error = state.paginationErrorMessage;
-    if (error != null) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(14, 18, 14, 4),
-        child: Column(
-          children: [
-            Text(
-              error,
-              textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppColor.danger),
-            ),
-            TextButton(
-              onPressed: context.read<SearchCubit>().retryPagination,
-              child: const Text('Try again'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return const SizedBox.shrink();
   }
 }

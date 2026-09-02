@@ -1,20 +1,19 @@
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/constants/app_image.dart';
-import 'package:e_commeric/core/extensions/context_extension.dart';
+import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/password_reset_cubit.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/password_reset_state.dart';
-import 'package:e_commeric/features/auth/presentation/models/password_reset_arguments.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_page_header.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/otp_code_field.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_page_header.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/otp_code_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerificationCodeView extends StatefulWidget {
-  const VerificationCodeView({super.key, required this.arguments});
+  const VerificationCodeView({super.key, required this.email});
 
-  final VerificationCodeArguments arguments;
+  final String email;
 
   @override
   State<VerificationCodeView> createState() => _VerificationCodeViewState();
@@ -39,7 +38,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
     }
 
     context.read<PasswordResetCubit>().verifyCode(
-      email: widget.arguments.email,
+      email: widget.email,
       code: _code,
     );
   }
@@ -59,12 +58,9 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
         } else if (state is VerifyCodeSuccess) {
           Navigator.of(context, rootNavigator: true).pop();
           context.showSuccessSnackBar(state.message);
-          Navigator.of(context).pushNamed(
-            AppRoute.createNewPassword,
-            arguments: CreateNewPasswordArguments(
-              email: widget.arguments.email,
-            ),
-          );
+          Navigator.of(
+            context,
+          ).pushNamed(AppRoute.createNewPassword, arguments: widget.email);
         } else if (state is VerifyCodeFailure) {
           Navigator.of(context, rootNavigator: true).pop();
           context.showErrorSnackBar(state.errorMessage);
@@ -102,7 +98,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
                       text: 'Please enter the 4 digit code\nsent to: ',
                       children: [
                         TextSpan(
-                          text: widget.arguments.email,
+                          text: widget.email,
                           style: const TextStyle(color: AppColor.primary),
                         ),
                       ],
@@ -137,7 +133,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
                             onPressed: canResend
                                 ? () => context
                                       .read<PasswordResetCubit>()
-                                      .resendCode(email: widget.arguments.email)
+                                      .resendCode(email: widget.email)
                                 : null,
                             child: Text(
                               'Resend Code',

@@ -1,12 +1,12 @@
 import 'package:e_commeric/core/common/utils/app_validator.dart';
-import 'package:e_commeric/core/extensions/context_extension.dart';
+import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:e_commeric/features/auth/presentation/cubit/auth_state.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_logo.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_text_field.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/social_auth_section.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_logo.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

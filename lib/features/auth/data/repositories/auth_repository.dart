@@ -1,9 +1,9 @@
-import 'package:e_commeric/core/constants/api_link.dart';
+import 'package:e_commeric/core/constants/api_end_points.dart';
 import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/API/api_service.dart';
-import 'package:e_commeric/core/services/API/repository_request_handler.dart';
+import 'package:e_commeric/core/services/API/request_handler.dart';
 import 'package:e_commeric/core/services/shared_preferences_service.dart';
-import 'package:e_commeric/features/auth/data/models/auth_session.dart';
+import 'package:e_commeric/features/auth/data/models/sign_in_response.dart';
 
 class AuthRepository {
   const AuthRepository({
@@ -15,16 +15,16 @@ class AuthRepository {
   final ApiService _apiService;
   final SharedPreferencesService _preferencesService;
 
-  Future<ApiResponse<AuthSession>> signIn({
+  Future<ApiResponse<SignInResponse>> signIn({
     required String email,
     required String password,
   }) async {
-    final response = await repositoryRequestHandler<AuthSession>(
+    final response = await RequestHandler<SignInResponse>(
       () => _apiService.post(
-        ApiLink.signIn,
+        ApiEndPoints.signIn,
         data: {'email': email.trim(), 'password': password},
       ),
-      fromJson: AuthSession.fromJson,
+      fromJson: SignInResponse.fromJson,
     );
 
     final session = response.data;
@@ -42,9 +42,9 @@ class AuthRepository {
     required String password,
     required String confirmPassword,
   }) {
-    return repositoryRequestHandler<Object?>(
+    return RequestHandler<Object?>(
       () => _apiService.post(
-        ApiLink.signUp,
+        ApiEndPoints.signUp,
         data: {
           'name': name.trim(),
           'phone': phone.trim(),
@@ -57,10 +57,9 @@ class AuthRepository {
   }
 
   Future<ApiResponse<Object?>> requestPasswordResetCode(String email) async {
-    _preferencesService.setResetEmail(email);
-    return repositoryRequestHandler<Object?>(
+    return RequestHandler<Object?>(
       () => _apiService.post(
-        ApiLink.requestResetCode,
+        ApiEndPoints.requestResetCode,
         data: {'email': email.trim()},
       ),
     );
@@ -70,9 +69,9 @@ class AuthRepository {
     required String email,
     required String code,
   }) {
-    return repositoryRequestHandler<Object?>(
+    return RequestHandler<Object?>(
       () => _apiService.post(
-        ApiLink.activatePasswordReset,
+        ApiEndPoints.activatePasswordReset,
         data: {'email': email.trim(), 'code': code},
       ),
     );
@@ -83,9 +82,9 @@ class AuthRepository {
     required String password,
     required String confirmPassword,
   }) {
-    return repositoryRequestHandler<Object?>(
+    return RequestHandler<Object?>(
       () => _apiService.post(
-        ApiLink.resetPassword,
+        ApiEndPoints.resetPassword,
         data: {
           'email': email.trim(),
           'password': password,
@@ -94,8 +93,6 @@ class AuthRepository {
       ),
     );
   }
-
-  Future<void> clearResetData() => _preferencesService.removeResetData();
 
   Future<void> signOut() => _preferencesService.clearSession();
 }

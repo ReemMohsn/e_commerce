@@ -57,17 +57,6 @@ class SharedPreferencesService {
   Future<void> setOnboardingCompleted() =>
       _preferences.setBool(SharedPreferencesKeys.onboardingCompleted, true);
 
-  Future<void> setResetEmail(String email) =>
-      _preferences.setString(SharedPreferencesKeys.resetEmail, email);
-
-  Future<String?> get resetEmail =>
-      _preferences.getString(SharedPreferencesKeys.resetEmail);
-
-  Future<void> removeResetData() async {
-    await _preferences.remove(SharedPreferencesKeys.resetEmail);
-    await _preferences.remove(SharedPreferencesKeys.otpCode);
-  }
-
   Future<void> setString(String key, String value) =>
       _preferences.setString(key, value);
 

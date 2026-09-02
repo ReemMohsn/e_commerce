@@ -1,7 +1,7 @@
-import 'package:e_commeric/core/constants/api_link.dart';
+import 'package:e_commeric/core/constants/api_end_points.dart';
 import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/API/api_service.dart';
-import 'package:e_commeric/core/services/API/repository_request_handler.dart';
+import 'package:e_commeric/core/services/API/request_handler.dart';
 import 'package:e_commeric/features/home/data/models/products_response_model.dart';
 
 class SearchRepository {
@@ -15,9 +15,9 @@ class SearchRepository {
     required int skip,
     required int limit,
   }) {
-    return repositoryRequestHandler<ProductsResponseModel>(
+    return RequestHandler<ProductsResponseModel>(
       () => _apiService.post(
-        ApiLink.productsFilter,
+        ApiEndPoints.productsFilter,
         data: {
           'skip': skip,
           'search': search,

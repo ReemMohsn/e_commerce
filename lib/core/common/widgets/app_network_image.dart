@@ -1,4 +1,4 @@
-import 'package:e_commeric/core/constants/api_link.dart';
+import 'package:e_commeric/core/constants/api_end_points.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +49,7 @@ class AppNetworkImage extends StatelessWidget {
     if (uri?.hasScheme == true) return path;
     if (path.startsWith('//')) return 'https:$path';
 
-    return Uri.parse(ApiLink.serverUrl).resolve(path).toString();
+    return Uri.parse(ApiEndPoints.serverUrl).resolve(path).toString();
   }
 }
 
@@ -62,9 +62,7 @@ class _ImageFallback extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: AppColor.surfaceSoft,
-      child: Center(
-        child: Icon(icon, size: 38, color: AppColor.hint),
-      ),
+      child: Center(child: Icon(icon, size: 38, color: AppColor.hint)),
     );
   }
 }

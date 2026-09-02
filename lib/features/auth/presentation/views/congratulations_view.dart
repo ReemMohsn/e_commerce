@@ -1,6 +1,6 @@
 import 'package:e_commeric/core/constants/app_image.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/auth/presentation/widgets/auth_back_button.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_back_button.dart';
 import 'package:flutter/material.dart';
 
 class CongratulationsView extends StatelessWidget {

@@ -53,6 +53,12 @@ abstract final class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColor.textPrimary,
         ),
+        headlineSmall: TextStyle(
+          fontSize: 20,
+          height: 1.3,
+          fontWeight: FontWeight.w600,
+          color: AppColor.textPrimary,
+        ),
         titleLarge: TextStyle(
           fontSize: 24,
           height: 1.4,
@@ -64,6 +70,12 @@ abstract final class AppTheme {
           height: 1.4,
           fontWeight: FontWeight.w600,
           color: AppColor.textSecondary,
+        ),
+        titleSmall: TextStyle(
+          fontSize: 16,
+          height: 1.35,
+          fontWeight: FontWeight.w500,
+          color: AppColor.textPrimary,
         ),
         bodyLarge: TextStyle(
           fontSize: 16,
@@ -95,6 +107,27 @@ abstract final class AppTheme {
           fontWeight: FontWeight.w500,
           color: AppColor.textPrimary,
         ),
+        labelSmall: TextStyle(
+          fontSize: 14,
+          height: 1.35,
+          fontWeight: FontWeight.w400,
+          color: AppColor.textSecondary,
+        ),
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColor.divider,
+        thickness: 1,
+        space: 1,
+      ),
+      switchTheme: SwitchThemeData(
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        trackColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColor.primary
+              : AppColor.controlInactive,
+        ),
+        thumbColor: const WidgetStatePropertyAll(AppColor.onPrimary),
+        trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

@@ -1,13 +1,7 @@
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
-extension ContextExtension on BuildContext {
-  Size get screenSize => MediaQuery.sizeOf(this);
-
-  ThemeData get theme => Theme.of(this);
-
-  ColorScheme get colors => Theme.of(this).colorScheme;
-
+extension SnackBarContextExtension on BuildContext {
   Object? get routeArguments => ModalRoute.of(this)?.settings.arguments;
   static bool _isLoading = false;
 
@@ -43,14 +37,6 @@ extension ContextExtension on BuildContext {
     );
     _isLoading = true;
   }
-
-  // void showLoadingDialog() {
-  //   showDialog<void>(
-  //     context: this,
-  //     barrierDismissible: false,
-  //     builder: (_) => const Center(child: CircularProgressIndicator()),
-  //   );
-  // }
 
   void showErrorSnackBar(String message) {
     _showSnackBar(message, AppColor.danger);

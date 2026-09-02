@@ -1,4 +1,4 @@
-abstract final class ApiLink {
+abstract final class ApiEndPoints {
   static const String serverUrl = 'https://supermarket-dan1.onrender.com/';
   static const String baseUrl = '${serverUrl}api/v1/';
 
@@ -12,4 +12,9 @@ abstract final class ApiLink {
   static const String homeProducts = 'home/products';
   static const String homeBrands = 'home/brand';
   static const String productsFilter = 'home/productsFilter';
+
+  static String productDetails(int productId) => '$homeProducts/$productId';
+
+  static const String profile = 'portfoilo/userData';
+  static const String editProfile = 'portfoilo/editUserData';
 }

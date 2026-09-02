@@ -54,31 +54,6 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
     if (state is SendCodeSuccess) startTimer();
   }
 
-  Future<void> resetPassword({
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }) async {
-    emit(ResetPasswordLoading());
-    try {
-      final response = await _repository.resetPassword(
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      );
-      await _repository.clearResetData();
-      emit(ResetPasswordSuccess(message: response.message));
-    } on ServerException catch (error) {
-      emit(ResetPasswordFailure(errorMessage: error.message));
-    } catch (_) {
-      emit(
-        ResetPasswordFailure(
-          errorMessage: 'Unable to update the password. Please try again.',
-        ),
-      );
-    }
-  }
-
   void startTimer({int seconds = 46}) {
     _timer?.cancel();
     _secondsRemaining = seconds;
@@ -95,6 +70,30 @@ class PasswordResetCubit extends Cubit<PasswordResetState> {
 
       if (_secondsRemaining == 0) timer.cancel();
     });
+  }
+
+  Future<void> resetPassword({
+    required String email,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    emit(ResetPasswordLoading());
+    try {
+      final response = await _repository.resetPassword(
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      );
+      emit(ResetPasswordSuccess(message: response.message));
+    } on ServerException catch (error) {
+      emit(ResetPasswordFailure(errorMessage: error.message));
+    } catch (_) {
+      emit(
+        ResetPasswordFailure(
+          errorMessage: 'Unable to update the password. Please try again.',
+        ),
+      );
+    }
   }
 
   @override

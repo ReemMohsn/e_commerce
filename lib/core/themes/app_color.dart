@@ -10,7 +10,9 @@ abstract final class AppColor {
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color inputField = Color(0xFFFFFFFF);
   static const Color inputBorder = Color(0xFFBFD3FF);
+  static const Color outlineSoft = Color(0xFFD8E5FF);
   static const Color surfaceSoft = Color(0xFFF0F5FF);
+  static const Color controlInactive = Color(0xFF98A2B3);
   static const Color cardShadow = Color(0x1A3F80FF);
   static const Color divider = Color(0xFFE5E7EB);
   static const Color rating = Color(0xFFFFB800);

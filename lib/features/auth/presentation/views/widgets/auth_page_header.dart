@@ -1,4 +1,4 @@
-import 'package:e_commeric/features/auth/presentation/widgets/auth_back_button.dart';
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_back_button.dart';
 import 'package:flutter/material.dart';
 
 class AuthPageHeader extends StatelessWidget {

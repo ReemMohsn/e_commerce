@@ -1,18 +1,35 @@
+import 'package:e_commeric/core/services/app_services.dart';
 import 'package:e_commeric/features/home/data/models/navigation_item_model.dart';
+import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/main_home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/views/home_view.dart';
+import 'package:e_commeric/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainHomeView extends StatelessWidget {
   const MainHomeView({super.key});
 
-  static const List<NavigationItemModel> _items = [
+  static final List<NavigationItemModel> _items = [
     NavigationItemModel(
       label: 'Home',
       icon: Icons.home_outlined,
       selectedIcon: Icons.home_rounded,
-      page: HomeView(),
+      page: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => HomeCubit(AppServices.homeRepository)
+              ..fetchCategories()
+              ..fetchProducts()
+              ..fetchBrands(),
+          ),
+          BlocProvider(
+            create: (_) =>
+                ProfileCubit(AppServices.profileRepository)..getCurrentUser(),
+          ),
+        ],
+        child: const HomeView(),
+      ),
     ),
     NavigationItemModel(
       label: 'Cart',
@@ -54,7 +71,7 @@ class MainHomeView extends StatelessWidget {
                     selectedIcon: Icon(item.selectedIcon),
                   ),
                 )
-                .toList(growable: false),
+                .toList(),
           ),
         );
       },

@@ -64,7 +64,7 @@ class ProductModel {
       rating: (json['rating'] as num).toDouble(),
       stock: json['stock'] as int,
       tags: List<String>.from(json['tags'] as List),
-      brand: json['brand'] as String,
+      brand: json['brand'] as String? ?? '',
       sku: json['sku'] as String,
       weight: json['weight'] as int,
       dimensions: ProductDimensionsModel.fromJson(

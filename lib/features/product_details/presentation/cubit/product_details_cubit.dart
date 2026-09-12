@@ -4,8 +4,7 @@ import 'package:e_commeric/features/product_details/presentation/cubit/product_d
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
-  ProductDetailsCubit(this._repository)
-    : super(const ProductDetailsInitial());
+  ProductDetailsCubit(this._repository) : super(const ProductDetailsInitial());
 
   final ProductDetailsRepository _repository;
   int? _productId;
@@ -28,16 +27,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         return;
       }
 
-      final minimumQuantity = product.minimumOrderQuantity
-          .clamp(1, product.stock > 0 ? product.stock : 1)
-          .toInt();
-
-      emit(
-        ProductDetailsSuccess(
-          product: product,
-          quantity: minimumQuantity,
-        ),
-      );
+      emit(ProductDetailsSuccess(product: product));
     } on ServerException catch (error) {
       emit(ProductDetailsFailure(errorMessage: error.message));
     } catch (_) {
@@ -61,32 +51,5 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     if (currentState.selectedImageIndex == index) return;
 
     emit(currentState.copyWith(selectedImageIndex: index));
-  }
-
-  void incrementQuantity() {
-    final currentState = state;
-    if (currentState is! ProductDetailsSuccess ||
-        !currentState.canIncreaseQuantity) {
-      return;
-    }
-
-    emit(currentState.copyWith(quantity: currentState.quantity + 1));
-  }
-
-  void decrementQuantity() {
-    final currentState = state;
-    if (currentState is! ProductDetailsSuccess ||
-        !currentState.canDecreaseQuantity) {
-      return;
-    }
-
-    emit(currentState.copyWith(quantity: currentState.quantity - 1));
-  }
-
-  void toggleFavorite() {
-    final currentState = state;
-    if (currentState is! ProductDetailsSuccess) return;
-
-    emit(currentState.copyWith(isFavorite: !currentState.isFavorite));
   }
 }

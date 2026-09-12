@@ -16,7 +16,7 @@ class ProductImageGallery extends StatefulWidget {
   final int selectedIndex;
   final bool isFavorite;
   final ValueChanged<int> onImageSelected;
-  final VoidCallback onFavoriteTap;
+  final VoidCallback? onFavoriteTap;
 
   @override
   State<ProductImageGallery> createState() => _ProductImageGalleryState();
@@ -92,7 +92,9 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
                         widget.isFavorite
                             ? Icons.favorite_rounded
                             : Icons.favorite_border_rounded,
-                        color: widget.isFavorite
+                        color: widget.onFavoriteTap == null
+                            ? AppColor.hint
+                            : widget.isFavorite
                             ? AppColor.danger
                             : AppColor.textPrimary,
                       ),

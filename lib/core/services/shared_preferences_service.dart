@@ -36,13 +36,13 @@ class SharedPreferencesService {
       await _preferences.setString(SharedPreferencesKeys.accessToken, token);
     }
     if (profile != null && profile.isNotEmpty) {
-      await _preferences.setString(
-        SharedPreferencesKeys.profile,
-        jsonEncode(profile),
-      );
+      await saveProfile(profile);
     }
     await _preferences.setBool(SharedPreferencesKeys.isLoggedIn, true);
   }
+
+  Future<void> saveProfile(Map<String, dynamic> profile) => _preferences
+      .setString(SharedPreferencesKeys.profile, jsonEncode(profile));
 
   Future<void> clearSession() async {
     await _preferences.remove(SharedPreferencesKeys.accessToken);

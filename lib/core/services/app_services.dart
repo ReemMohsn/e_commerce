@@ -1,5 +1,7 @@
 import 'package:e_commeric/core/services/API/api_service.dart';
 import 'package:e_commeric/core/services/shared_preferences_service.dart';
+import 'package:e_commeric/features/cart/data/repositories/cart_repository.dart';
+import 'package:e_commeric/features/favorit/data/repositories/favorite_repository.dart';
 import 'package:e_commeric/features/profile/data/repositories/profile_repository.dart';
 import 'package:e_commeric/features/product_details/data/repositories/product_details_repository.dart';
 import 'package:e_commeric/features/auth/data/repositories/auth_repository.dart';
@@ -30,5 +32,9 @@ class AppServices {
   static final ProfileRepository profileRepository = ProfileRepository(
     apiService: api,
     preferencesService: preferences,
+  );
+  static final CartRepository cartRepository = CartRepository(apiService: api);
+  static final FavoriteRepository favoriteRepository = FavoriteRepository(
+    apiService: api,
   );
 }

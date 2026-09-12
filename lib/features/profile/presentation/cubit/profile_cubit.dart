@@ -35,10 +35,12 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(EditProfileSuccess(message: response.message));
     } on ServerException catch (error) {
       emit(ProfileFailure(errorMessage: error.message));
+    } on CacheException catch (error) {
+      emit(ProfileFailure(errorMessage: error.message));
     } catch (_) {
       emit(
         ProfileFailure(
-          errorMessage: 'Unable to create your account. Please try again.',
+          errorMessage: 'Unable to update your profile. Please try again.',
         ),
       );
     }

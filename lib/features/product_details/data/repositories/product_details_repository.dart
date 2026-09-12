@@ -13,8 +13,7 @@ class ProductDetailsRepository {
   Future<ApiResponse<ProductModel>> getProductDetails(int productId) {
     return RequestHandler<ProductModel>(
       () => _apiService.get(ApiEndPoints.productDetails(productId)),
-      fromJson: (data) =>
-          ProductModel.fromJson(Map<String, dynamic>.from(data as Map)),
+      fromJson: (data) => ProductModel.fromJson(data as Map<String, dynamic>),
     );
   }
 }

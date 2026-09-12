@@ -13,6 +13,10 @@ import 'package:e_commeric/features/auth/presentation/views/forgot_password_view
 import 'package:e_commeric/features/auth/presentation/views/login_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/sign_up_view.dart';
 import 'package:e_commeric/features/auth/presentation/views/verification_code_view.dart';
+import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/views/cart_view.dart';
+import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/views/widgets/favorite_action_listener.dart';
 import 'package:e_commeric/features/home/presentation/view_model/main_home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/views/main_home_view.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_cubit.dart';
@@ -92,17 +96,59 @@ class AppRouter {
       case AppRoute.mainHome:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (_) => MainHomeCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => MainHomeCubit()),
+              BlocProvider(
+                create: (_) => CartCubit(AppServices.cartRepository),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    FavoriteCubit(AppServices.favoriteRepository)
+                      ..loadFavoriteStatus(),
+              ),
+            ],
             child: const MainHomeView(),
+          ),
+        );
+
+      case AppRoute.cart:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => CartCubit(AppServices.cartRepository)..getCart(),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    FavoriteCubit(AppServices.favoriteRepository)
+                      ..loadFavoriteStatus(),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    ProfileCubit(AppServices.profileRepository)
+                      ..getCurrentUser(),
+              ),
+            ],
+            child: const FavoriteActionListener(child: CartView()),
           ),
         );
 
       case AppRoute.search:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (_) => SearchCubit(AppServices.searchRepository),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => SearchCubit(AppServices.searchRepository),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    FavoriteCubit(AppServices.favoriteRepository)
+                      ..loadFavoriteStatus(),
+              ),
+            ],
             child: const SearchView(),
           ),
         );
@@ -111,10 +157,22 @@ class AppRouter {
         final productId = settings.arguments as int;
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                ProductDetailsCubit(AppServices.productDetailsRepository)
-                  ..fetchProduct(productId),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    ProductDetailsCubit(AppServices.productDetailsRepository)
+                      ..fetchProduct(productId),
+              ),
+              BlocProvider(
+                create: (_) => CartCubit(AppServices.cartRepository),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    FavoriteCubit(AppServices.favoriteRepository)
+                      ..loadFavoriteStatus(),
+              ),
+            ],
             child: const ProductDetailsView(),
           ),
         );
@@ -154,6 +212,7 @@ class AppRoute {
   static const String createNewPassword = '/create-new-password';
   static const String congratulations = '/congratulations';
   static const String mainHome = '/main-home';
+  static const String cart = '/cart';
   static const String search = '/search';
   static const String productDetails = '/product-details';
   static const String profile = '/profile';

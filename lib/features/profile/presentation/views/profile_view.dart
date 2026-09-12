@@ -49,7 +49,10 @@ class _ProfileViewState extends State<ProfileView> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 13),
-            child: CartButton(itemCount: 0),
+            child: CartButton(
+              itemCount: 0,
+              onPressed: () => Navigator.pushNamed(context, AppRoute.cart),
+            ),
           ),
         ],
       ),

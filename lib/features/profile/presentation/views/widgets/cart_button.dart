@@ -2,9 +2,10 @@ import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CartButton extends StatelessWidget {
-  const CartButton({super.key, required this.itemCount});
+  const CartButton({super.key, required this.itemCount, this.onPressed});
 
   final int itemCount;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CartButton extends StatelessWidget {
         children: [
           IconButton(
             tooltip: 'Cart',
-            onPressed: () {},
+            onPressed: onPressed ?? () {},
             icon: const Icon(
               Icons.shopping_cart_outlined,
               size: 27,

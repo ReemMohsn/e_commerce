@@ -6,9 +6,11 @@ class ProductPurchaseBar extends StatelessWidget {
   const ProductPurchaseBar({
     super.key,
     required this.product,
+    required this.onAddToCart,
   });
 
   final ProductModel product;
+  final VoidCallback onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class ProductPurchaseBar extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: null,
+                  onPressed: onAddToCart,
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
                     foregroundColor: AppColor.primary,

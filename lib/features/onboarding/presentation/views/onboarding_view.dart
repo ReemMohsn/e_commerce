@@ -1,3 +1,5 @@
+import 'package:e_commeric/core/routing/app_route.dart';
+import 'package:e_commeric/core/services/app_services.dart';
 import 'package:e_commeric/features/onboarding/data/onboarding_pages.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_state.dart';
@@ -70,7 +72,18 @@ class _OnboardingViewState extends State<OnboardingView> {
                   return SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: context.read<OnboardingCubit>().nextPage,
+                      onPressed: isLastPage
+                          ? () async {
+                              await AppServices.preferences
+                                  .setOnboardingCompleted();
+                              if (!context.mounted) return;
+
+                              Navigator.pushReplacementNamed(
+                                context,
+                                AppRoute.login,
+                              );
+                            }
+                          : context.read<OnboardingCubit>().nextPage,
                       child: Text(isLastPage ? 'Get Start' : 'Next'),
                     ),
                   );

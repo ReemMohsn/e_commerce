@@ -1,5 +1,9 @@
+import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
+import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/cubit/cart_state.dart';
+import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/brands_section.dart';
@@ -54,6 +58,20 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  Future<void> _openSearch() async {
+    await Navigator.pushNamed(context, AppRoute.search);
+    if (mounted) {
+      context.read<FavoriteCubit>().loadFavoriteStatus();
+    }
+  }
+
+  Future<void> _openProfile() async {
+    await Navigator.pushNamed(context, AppRoute.profile);
+    if (mounted) {
+      context.read<ProfileCubit>().getCurrentUser();
+    }
+  }
+
   @override
   void dispose() {
     _scrollController
@@ -64,64 +82,79 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 72,
-        titleSpacing: 14,
-        title: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (context, state) {
-            if (state is ProfileSuccess) {
-              return HomeHeader(
-                userName: state.user.name,
-                userImage: state.user.image,
-              );
-            }
+    return BlocListener<CartCubit, CartState>(
+      listener: (context, state) {
+        if (state is AddCartSuccess) {
+          Navigator.of(context, rootNavigator: true).pop();
+          context.showSuccessSnackBar(state.message);
+        } else if (state is AddCartFailure) {
+          Navigator.of(context, rootNavigator: true).pop();
 
-            return const HomeHeader();
-          },
+          context.showErrorSnackBar(state.errorMessage);
+        } else if (state is AddCartLoading) {
+          context.showLoadingDialog();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 72,
+          titleSpacing: 14,
+          title: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileSuccess) {
+                return HomeHeader(
+                  userName: state.user.name,
+                  userImage: state.user.image,
+                  onProfileTap: _openProfile,
+                );
+              }
+
+              return HomeHeader(onProfileTap: _openProfile);
+            },
+          ),
         ),
-      ),
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(14, 8, 14, 22),
-            sliver: SliverToBoxAdapter(
-              child: BlocBuilder<HomeCubit, HomeState>(
-                buildWhen: (previous, current) =>
-                    previous.productsStatus != current.productsStatus ||
-                    previous.categories != current.categories ||
-                    previous.brands != current.brands ||
-                    previous.selectedCategorySlug !=
-                        current.selectedCategorySlug ||
-                    previous.selectedBrandName != current.selectedBrandName,
-                builder: (context, state) {
-                  final canFilter =
-                      state.productsStatus == HomeRequestStatus.success &&
-                      (state.categories.isNotEmpty || state.brands.isNotEmpty);
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(14, 8, 14, 22),
+              sliver: SliverToBoxAdapter(
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  buildWhen: (previous, current) =>
+                      previous.productsStatus != current.productsStatus ||
+                      previous.categories != current.categories ||
+                      previous.brands != current.brands ||
+                      previous.selectedCategorySlug !=
+                          current.selectedCategorySlug ||
+                      previous.selectedBrandName != current.selectedBrandName,
+                  builder: (context, state) {
+                    final canFilter =
+                        state.productsStatus == HomeRequestStatus.success &&
+                        (state.categories.isNotEmpty ||
+                            state.brands.isNotEmpty);
 
-                  return SearchWidget(
-                    onSearchTap: () =>
-                        Navigator.pushNamed(context, AppRoute.search),
-                    onFilterTap: canFilter ? _showFilters : null,
-                    isFilterActive: state.hasActiveFilters,
-                  );
-                },
+                    return SearchWidget(
+                      onSearchTap: _openSearch,
+                      onFilterTap: canFilter ? _showFilters : null,
+                      isFilterActive: state.hasActiveFilters,
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: CategoriesSection()),
-          const SliverToBoxAdapter(child: BrandsSection()),
-          const SliverPadding(
-            padding: EdgeInsets.fromLTRB(14, 12, 14, 10),
-            sliver: SliverToBoxAdapter(
-              child: HomeSectionHeader(title: 'Products'),
+            const SliverToBoxAdapter(child: CategoriesSection()),
+            const SliverToBoxAdapter(child: BrandsSection()),
+            const SliverPadding(
+              padding: EdgeInsets.fromLTRB(14, 12, 14, 10),
+              sliver: SliverToBoxAdapter(
+                child: HomeSectionHeader(title: 'Products'),
+              ),
             ),
-          ),
-          const ProductsSection(),
-          const SliverToBoxAdapter(child: PaginationFooter()),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-        ],
+            const ProductsSection(),
+            const SliverToBoxAdapter(child: PaginationFooter()),
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          ],
+        ),
       ),
     );
   }

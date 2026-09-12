@@ -10,11 +10,18 @@ abstract final class ApiEndPoints {
 
   static const String homeCategories = 'home/categories';
   static const String homeProducts = 'home/products';
-  static const String homeBrands = 'home/brand';
+  static const String homeBrands = 'home/brands';
   static const String productsFilter = 'home/productsFilter';
 
   static String productDetails(int productId) => '$homeProducts/$productId';
 
   static const String profile = 'portfoilo/userData';
   static const String editProfile = 'portfoilo/editUserData';
+
+  static const String addCart = 'user/addCart';
+  static const String getCart = 'user/getCart';
+
+  static const String addFavorite = 'user/addFavorite';
+  static const String getFavorite = 'user/getFavorite';
+  static const String deleteFavorite = 'user/deleteFavorite';
 }

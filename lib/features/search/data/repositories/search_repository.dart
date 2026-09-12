@@ -30,9 +30,8 @@ class SearchRepository {
           'limit': limit,
         },
       ),
-      fromJson: (data) => ProductsResponseModel.fromJson(
-        Map<String, dynamic>.from(data as Map),
-      ),
+      fromJson: (data) =>
+          ProductsResponseModel.fromJson(data as Map<String, dynamic>),
     );
   }
 }

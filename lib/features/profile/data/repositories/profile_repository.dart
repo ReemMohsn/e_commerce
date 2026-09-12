@@ -35,10 +35,29 @@ class ProfileRepository {
     }
   }
 
-  Future<ApiResponse<Object?>> editProfile({required UserModel userModel}) {
-    return RequestHandler<Object?>(
+  Future<ApiResponse<Object?>> editProfile({
+    required UserModel userModel,
+  }) async {
+    final response = await RequestHandler<Object?>(
       () =>
           _apiService.post(ApiEndPoints.editProfile, data: userModel.toJson()),
     );
+
+    try {
+      // The edit endpoint returns only a message. Update the cache before
+      // returning so screens reloading on navigation see the saved values.
+      final savedProfile = await _preferencesService.profile;
+      await _preferencesService.saveProfile({
+        ...?savedProfile,
+        ...userModel.toJson(),
+      });
+    } catch (_) {
+      throw const CacheException(
+        'Your profile was updated, but could not be saved on this device. '
+        'Please sign in again to refresh your profile.',
+      );
+    }
+
+    return response;
   }
 }

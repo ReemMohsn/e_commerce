@@ -1,4 +1,7 @@
 import 'package:e_commeric/core/routing/app_route.dart';
+import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
@@ -64,38 +67,54 @@ class ProductsSection extends StatelessWidget {
               );
             }
 
-            return SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              sliver: SliverLayoutBuilder(
-                builder: (context, constraints) {
-                  final width = constraints.crossAxisExtent;
-                  final columns = width >= 900
-                      ? 4
-                      : width >= 600
-                      ? 3
-                      : 2;
+            return BlocBuilder<FavoriteCubit, FavoriteState>(
+              builder: (context, _) {
+                final favoriteCubit = context.read<FavoriteCubit>();
 
-                  return SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      mainAxisExtent: 264,
-                    ),
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final product = visibleProducts[index];
-                      return ProductItemCard(
-                        product: product,
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          AppRoute.productDetails,
-                          arguments: product.id,
+                return SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  sliver: SliverLayoutBuilder(
+                    builder: (context, constraints) {
+                      final width = constraints.crossAxisExtent;
+                      final columns = width >= 900
+                          ? 4
+                          : width >= 600
+                          ? 3
+                          : 2;
+
+                      return SliverGrid(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: columns,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          mainAxisExtent: 264,
                         ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final product = visibleProducts[index];
+                          return ProductItemCard(
+                            product: product,
+                            isFavorite: favoriteCubit.isFavorite(product.id),
+                            onFavoriteTap: () =>
+                                favoriteCubit.toggleFavorite(product.id),
+                            onAddTap: () =>
+                                context.read<CartCubit>().addToCart(product.id),
+                            onTap: () async {
+                              await Navigator.pushNamed(
+                                context,
+                                AppRoute.productDetails,
+                                arguments: product.id,
+                              );
+                              if (context.mounted) {
+                                favoriteCubit.loadFavoriteStatus();
+                              }
+                            },
+                          );
+                        }, childCount: visibleProducts.length),
                       );
-                    }, childCount: visibleProducts.length),
-                  );
-                },
-              ),
+                    },
+                  ),
+                );
+              },
             );
         }
       },

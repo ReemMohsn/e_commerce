@@ -1,5 +1,5 @@
-import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
+import 'package:e_commeric/features/profile/presentation/views/widgets/profile_avatar_button.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -7,11 +7,13 @@ class HomeHeader extends StatelessWidget {
     super.key,
     this.userName,
     this.userImage,
+    required this.onProfileTap,
     this.onNotificationsTap,
   });
 
   final String? userName;
   final String? userImage;
+  final VoidCallback onProfileTap;
   final VoidCallback? onNotificationsTap;
 
   @override
@@ -24,32 +26,10 @@ class HomeHeader extends StatelessWidget {
 
     return Row(
       children: [
-        CircleAvatar(
-          radius: 23,
-          backgroundColor: AppColor.secondary,
-          child: CircleAvatar(
-            radius: 20,
-            backgroundColor: AppColor.surfaceSoft,
-            child: ClipOval(
-              child: SizedBox.expand(
-                child: userImage == null || userImage!.trim().isEmpty
-                    ? Center(
-                        child: Text(
-                          initial,
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(
-                                color: AppColor.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      )
-                    : AppNetworkImage(
-                        imageUrl: userImage,
-                        fallbackIcon: Icons.person_outline_rounded,
-                      ),
-              ),
-            ),
-          ),
+        ProfileAvatarButton(
+          imageUrl: userImage,
+          fallbackText: initial,
+          onPressed: onProfileTap,
         ),
         const SizedBox(width: 10),
         Expanded(

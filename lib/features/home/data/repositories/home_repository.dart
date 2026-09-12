@@ -16,12 +16,11 @@ class HomeRepository {
     return RequestHandler<List<CategoryModel>>(
       () => _apiService.get(ApiEndPoints.homeCategories),
       fromJson: (data) {
-        final json = Map<String, dynamic>.from(data as Map);
+        final json = data as Map<String, dynamic>;
         return (json['list'] as List)
             .map(
-              (category) => CategoryModel.fromJson(
-                Map<String, dynamic>.from(category as Map),
-              ),
+              (category) =>
+                  CategoryModel.fromJson(category as Map<String, dynamic>),
             )
             .toList();
       },
@@ -37,9 +36,8 @@ class HomeRepository {
         ApiEndPoints.homeProducts,
         queryParameters: {'skip': skip, 'limit': limit},
       ),
-      fromJson: (data) => ProductsResponseModel.fromJson(
-        Map<String, dynamic>.from(data as Map),
-      ),
+      fromJson: (data) =>
+          ProductsResponseModel.fromJson(data as Map<String, dynamic>),
     );
   }
 
@@ -47,7 +45,7 @@ class HomeRepository {
     return RequestHandler<List<BrandModel>>(
       () => _apiService.get(ApiEndPoints.homeBrands),
       fromJson: (data) {
-        final json = Map<String, dynamic>.from(data as Map);
+        final json = data as Map<String, dynamic>;
         return (json['list'] as List)
             .map(
               (brand) =>

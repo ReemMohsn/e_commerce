@@ -7,13 +7,17 @@ class ProductItemCard extends StatelessWidget {
   const ProductItemCard({
     super.key,
     required this.product,
+    this.isFavorite = false,
     this.onTap,
     this.onFavoriteTap,
+    this.onAddTap,
   });
 
   final ProductModel product;
+  final bool isFavorite;
   final VoidCallback? onTap;
   final VoidCallback? onFavoriteTap;
+  final VoidCallback? onAddTap;
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +80,16 @@ class ProductItemCard extends StatelessWidget {
                         child: InkWell(
                           customBorder: const CircleBorder(),
                           onTap: onFavoriteTap ?? () {},
-                          child: const Padding(
-                            padding: EdgeInsets.all(5),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
                             child: Icon(
-                              Icons.favorite_border_rounded,
+                              isFavorite
+                                  ? Icons.favorite_rounded
+                                  : Icons.favorite_border_rounded,
                               size: 20,
-                              color: AppColor.textPrimary,
+                              color: isFavorite
+                                  ? AppColor.primary
+                                  : AppColor.textPrimary,
                             ),
                           ),
                         ),
@@ -137,6 +145,24 @@ class ProductItemCard extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                  if (onAddTap != null) ...[
+                    const Spacer(),
+                    SizedBox(
+                      height: 30,
+                      child: FilledButton.icon(
+                        onPressed: onAddTap,
+                        style: FilledButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          visualDensity: VisualDensity.compact,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        icon: const Icon(Icons.add_rounded, size: 16),
+                        label: const Text('Add'),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ],

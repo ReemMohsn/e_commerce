@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class HorizontalSectionError extends StatelessWidget {
                 context,
               ).textTheme.bodySmall?.copyWith(color: AppColor.danger),
             ),
-            TextButton(onPressed: onRetry, child: const Text('Try again')),
+            TextButton(onPressed: onRetry, child: const Text(AppStrings.tryAgain)),
           ],
         ),
       ),

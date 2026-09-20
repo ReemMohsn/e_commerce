@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/profile/presentation/views/widgets/profile_avatar_button.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,9 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final name = userName?.trim();
-    final displayName = name == null || name.isEmpty ? 'there' : name;
-    final initial = displayName == 'there'
-        ? 'M'
+    final displayName = name == null || name.isEmpty ? AppStrings.there : name;
+    final initial = displayName == AppStrings.there
+        ? AppStrings.defaultAvatarLetter
         : displayName.substring(0, 1).toUpperCase();
 
     return Row(
@@ -34,7 +35,7 @@ class HomeHeader extends StatelessWidget {
         const SizedBox(width: 10),
         Expanded(
           child: Text(
-            'Hi $displayName!',
+            AppStrings.greeting(displayName),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -44,7 +45,7 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
         IconButton(
-          tooltip: 'Notifications',
+          tooltip: AppStrings.notifications,
           onPressed: onNotificationsTap ?? () {},
           icon: const Icon(
             Icons.notifications_none_rounded,

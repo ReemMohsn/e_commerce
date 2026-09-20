@@ -1,6 +1,7 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,7 @@ class PaginationFooter extends StatelessWidget {
             ),
             TextButton(
               onPressed: context.read<FavoriteCubit>().retryPagination,
-              child: const Text('Try again'),
+              child: const Text(AppStrings.tryAgain),
             ),
           ],
         ),

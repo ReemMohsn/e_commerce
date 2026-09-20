@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
@@ -35,7 +36,7 @@ class HomeFilterSheet extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Filter Products',
+                        AppStrings.filterProducts,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: AppColor.textPrimary,
@@ -44,7 +45,7 @@ class HomeFilterSheet extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Close',
+                      tooltip: AppStrings.close,
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.close_rounded),
                     ),
@@ -59,7 +60,7 @@ class HomeFilterSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Category',
+                        AppStrings.category,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(color: AppColor.textPrimary),
                       ),
@@ -69,7 +70,7 @@ class HomeFilterSheet extends StatelessWidget {
                         runSpacing: 8,
                         children: [
                           _FilterOption(
-                            label: 'All',
+                            label: AppStrings.all,
                             isSelected: state.selectedCategorySlug == null,
                             onSelected: () => context
                                 .read<HomeCubit>()
@@ -89,7 +90,7 @@ class HomeFilterSheet extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Brand',
+                        AppStrings.brand,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(color: AppColor.textPrimary),
                       ),
@@ -99,7 +100,7 @@ class HomeFilterSheet extends StatelessWidget {
                         runSpacing: 8,
                         children: [
                           _FilterOption(
-                            label: 'All',
+                            label: AppStrings.all,
                             isSelected: state.selectedBrandName == null,
                             onSelected: () =>
                                 context.read<HomeCubit>().filterByBrand(null),
@@ -128,14 +129,14 @@ class HomeFilterSheet extends StatelessWidget {
                         onPressed: state.hasActiveFilters
                             ? context.read<HomeCubit>().clearFilters
                             : null,
-                        child: const Text('Clear Filters'),
+                        child: const Text(AppStrings.clearFilters),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Done'),
+                        child: const Text(AppStrings.done),
                       ),
                     ),
                   ],

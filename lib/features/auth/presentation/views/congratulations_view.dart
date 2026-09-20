@@ -1,3 +1,5 @@
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_illustration.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/constants/app_image.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_back_button.dart';
@@ -28,33 +30,27 @@ class CongratulationsView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 42),
-                Center(
-                  child: SizedBox(
-                    width: 344,
-                    height: 256,
-                    child: Image.asset(
-                      AppImage.congratulations,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                AuthIllustration(
+                  asset: AppImage.congratulations,
+                  designWidth: 344,
                 ),
                 const SizedBox(height: 26),
                 Text(
-                  'Congratulations',
+                  AppStrings.congratulations,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'You have updated the password. please\n'
-                  'login again with your latest password',
+                  AppStrings
+                      .youHaveUpdatedThePasswordPleaseLoginAgainWithYourLatestPassword,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () => _goToLogin(context),
-                  child: const Text('Log In'),
+                  child: const Text(AppStrings.logIn),
                 ),
               ],
             ),

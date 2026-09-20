@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
@@ -47,7 +48,7 @@ class PaginationFooter extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: context.read<HomeCubit>().retryPagination,
-                  child: const Text('Try again'),
+                  child: const Text(AppStrings.tryAgain),
                 ),
               ],
             ),

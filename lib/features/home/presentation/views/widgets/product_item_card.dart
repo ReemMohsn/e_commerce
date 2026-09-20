@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
@@ -60,7 +61,7 @@ class ProductItemCard extends StatelessWidget {
                               vertical: 3,
                             ),
                             child: Text(
-                              '${discount.round()}% OFF',
+                              AppStrings.discountOff(discount.round()),
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: AppColor.primary,
@@ -121,7 +122,7 @@ class ProductItemCard extends StatelessWidget {
                 const SizedBox(height: 13),
               const SizedBox(height: 2),
               Text(
-                product.title.isEmpty ? 'Unnamed product' : product.title,
+                product.title.isEmpty ? AppStrings.unnamedProduct : product.title,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -159,7 +160,7 @@ class ProductItemCard extends StatelessWidget {
                           ),
                         ),
                         icon: const Icon(Icons.add_rounded, size: 16),
-                        label: const Text('Add'),
+                        label: const Text(AppStrings.add),
                       ),
                     ),
                   ],
@@ -176,6 +177,6 @@ class ProductItemCard extends StatelessWidget {
     final amount = value == value.roundToDouble()
         ? value.toStringAsFixed(0)
         : value.toStringAsFixed(2);
-    return '$amount LE';
+    return AppStrings.priceLe(amount);
   }
 }

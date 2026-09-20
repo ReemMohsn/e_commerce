@@ -1,3 +1,5 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
@@ -28,8 +30,8 @@ class CartProductCard extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 108,
-                height: 112,
+                width: context.responsiveWidth(108),
+                height: context.responsiveWidth(112),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(9),
                   child: AppNetworkImage(
@@ -59,8 +61,8 @@ class CartProductCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         IconButton(
                           tooltip: isFavorite
-                              ? 'Remove from favorites'
-                              : 'Add to favorites',
+                              ? AppStrings.removeFromFavorites
+                              : AppStrings.addToFavorites,
                           onPressed: onFavoriteTap,
                           visualDensity: VisualDensity.compact,
                           padding: EdgeInsets.zero,
@@ -91,7 +93,9 @@ class CartProductCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Price: ${_formatPrice(product.priceAfterDiscount)}',
+                          AppStrings.priceLabel(
+                            _formatPrice(product.priceAfterDiscount),
+                          ),
                           style: Theme.of(context).textTheme.labelMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
@@ -141,5 +145,5 @@ class CartProductCard extends StatelessWidget {
     );
   }
 
-  String _formatPrice(double value) => '${value.toStringAsFixed(2)} EGP';
+  String _formatPrice(double value) => AppStrings.priceEgp(value);
 }

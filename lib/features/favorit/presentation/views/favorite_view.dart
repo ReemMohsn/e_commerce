@@ -1,9 +1,10 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_state.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:e_commeric/features/favorit/presentation/views/widgets/favorite_content.dart';
 import 'package:e_commeric/features/home/presentation/view_model/main_home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
@@ -94,13 +95,13 @@ class _FavoriteViewState extends State<FavoriteView> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 14),
             child: IconButton.outlined(
-              tooltip: 'Back to home',
+              tooltip: AppStrings.backToHome,
               onPressed: () => context.read<MainHomeCubit>().changeIndex(0),
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
             ),
           ),
           title: Text(
-            'Favorites',
+            AppStrings.favorites,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           actions: [
@@ -132,7 +133,7 @@ class _FavoriteViewState extends State<FavoriteView> {
               return HomeMessage(
                 icon: Icons.cloud_off_outlined,
                 message: state.errorMessage,
-                actionLabel: 'Retry',
+                actionLabel: AppStrings.retry,
                 onAction: context.read<FavoriteCubit>().getFavorite,
               );
             }
@@ -140,7 +141,7 @@ class _FavoriteViewState extends State<FavoriteView> {
             if (state is FavoriteEmpty) {
               return const HomeMessage(
                 icon: Icons.favorite_border_rounded,
-                message: 'Your favorites list is empty.',
+                message: AppStrings.yourFavoritesListIsEmpty,
               );
             }
 

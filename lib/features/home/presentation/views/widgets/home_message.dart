@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class HomeMessage extends StatelessWidget {
             if (actionLabel != null && onAction != null) ...[
               const SizedBox(height: 16),
               SizedBox(
-                width: 160,
+                width: context.responsiveWidth(160),
                 child: ElevatedButton(
                   onPressed: onAction,
                   child: Text(actionLabel!),

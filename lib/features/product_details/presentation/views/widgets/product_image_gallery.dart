@@ -1,3 +1,5 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
       child: Column(
         children: [
           SizedBox(
-            height: 285,
+            height: context.responsiveWidth(285),
             child: Stack(
               children: [
                 Positioned.fill(
@@ -85,8 +87,8 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
                     ),
                     child: IconButton(
                       tooltip: widget.isFavorite
-                          ? 'Remove from favorites'
-                          : 'Add to favorites',
+                          ? AppStrings.removeFromFavorites
+                          : AppStrings.addToFavorites,
                       onPressed: widget.onFavoriteTap,
                       icon: Icon(
                         widget.isFavorite

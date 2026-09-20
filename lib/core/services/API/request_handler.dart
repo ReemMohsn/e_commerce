@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/errors/errormodel.dart';
@@ -14,7 +15,7 @@ Future<ApiResponse<T>> RequestHandler<T>(
     if (responseBody is! Map) {
       throw ServerException(
         ErrorModel(
-          message: 'The data format coming from the server is not supported.',
+          message: AppStrings.theDataFormatComingFromTheServerIsNotSupported,
           statusCode: response.statusCode ?? 0,
         ),
       );
@@ -26,7 +27,7 @@ Future<ApiResponse<T>> RequestHandler<T>(
 
     final message = rawMessage is String && rawMessage.isNotEmpty
         ? rawMessage
-        : 'The operation was completed successfully';
+        : AppStrings.theOperationWasCompletedSuccessfully;
 
     final rawData = json['data'];
 

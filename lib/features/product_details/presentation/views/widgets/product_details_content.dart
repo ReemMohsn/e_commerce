@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:e_commeric/features/product_details/presentation/views/widgets/product_image_gallery.dart';
@@ -99,7 +100,7 @@ class ProductDetailsContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 18),
                     Text(
-                      'Product Details',
+                      AppStrings.productDetails,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -135,7 +136,7 @@ class ProductDetailsContent extends StatelessWidget {
                     if (product.reviews.isNotEmpty) ...[
                       const SizedBox(height: 24),
                       Text(
-                        'Customer Reviews',
+                        AppStrings.customerReviews,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),

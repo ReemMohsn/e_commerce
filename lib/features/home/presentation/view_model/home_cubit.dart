@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/services/errors/exception.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:e_commeric/features/home/data/repositories/home_repository.dart';
@@ -43,7 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
         state.copyWith(
           categoriesStatus: HomeRequestStatus.failure,
           categoriesErrorMessage:
-              'Unable to load categories. Please try again.',
+              AppStrings.unableToLoadCategoriesPleaseTryAgain,
         ),
       );
     }
@@ -95,7 +96,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         state.copyWith(
           productsStatus: HomeRequestStatus.failure,
-          productsErrorMessage: 'Unable to load products. Please try again.',
+          productsErrorMessage: AppStrings.unableToLoadProductsPleaseTryAgain,
         ),
       );
     }
@@ -132,7 +133,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         state.copyWith(
           brandsStatus: HomeRequestStatus.failure,
-          brandsErrorMessage: 'Unable to load brands. Please try again.',
+          brandsErrorMessage: AppStrings.unableToLoadBrandsPleaseTryAgain,
         ),
       );
     }
@@ -203,7 +204,7 @@ class HomeCubit extends Cubit<HomeState> {
         latestState.copyWith(
           isLoadingMore: false,
           paginationErrorMessage:
-              'Unable to load more products. Please try again.',
+              AppStrings.unableToLoadMoreProductsPleaseTryAgain,
         ),
       );
     }

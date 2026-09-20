@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class CartButton extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           IconButton(
-            tooltip: 'Cart',
+            tooltip: AppStrings.cart,
             onPressed: onPressed ?? () {},
             icon: const Icon(
               Icons.shopping_cart_outlined,
@@ -36,7 +37,7 @@ class CartButton extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  itemCount > 9 ? '9+' : '$itemCount',
+                  itemCount > 9 ? AppStrings.cartCountOverflow : '$itemCount',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppColor.onPrimary,
                     fontSize: 10,

@@ -3,6 +3,7 @@ import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/API/api_service.dart';
 import 'package:e_commeric/core/services/API/request_handler.dart';
 import 'package:e_commeric/features/home/data/models/products_response_model.dart';
+import 'package:e_commeric/features/search/data/models/search_products_request_model.dart';
 
 class SearchRepository {
   const SearchRepository({required ApiService apiService})
@@ -10,25 +11,13 @@ class SearchRepository {
 
   final ApiService _apiService;
 
-  Future<ApiResponse<ProductsResponseModel>> searchProducts({
-    required String search,
-    required int skip,
-    required int limit,
-  }) {
+  Future<ApiResponse<ProductsResponseModel>> searchProducts(
+    SearchProductsRequestModel request,
+  ) {
     return RequestHandler<ProductsResponseModel>(
       () => _apiService.post(
         ApiEndPoints.productsFilter,
-        data: {
-          'skip': skip,
-          'search': search,
-          'brand': '',
-          'category': '',
-          'rating': '',
-          'price': '',
-          'discount': '',
-          'popular': false,
-          'limit': limit,
-        },
+        data: request.toJson(),
       ),
       fromJson: (data) =>
           ProductsResponseModel.fromJson(data as Map<String, dynamic>),

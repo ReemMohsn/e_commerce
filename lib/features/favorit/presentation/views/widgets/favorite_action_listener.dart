@@ -1,6 +1,6 @@
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

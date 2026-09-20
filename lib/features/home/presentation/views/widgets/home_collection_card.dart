@@ -1,3 +1,5 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class HomeCollectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 112,
+      width: context.responsiveWidth(112),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -53,7 +55,7 @@ class HomeCollectionCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            title.isEmpty ? 'Unnamed' : title,
+            title.isEmpty ? AppStrings.unnamed : title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:e_commeric/features/product_details/presentation/views/widgets/information_row.dart';
 import 'package:flutter/material.dart';
@@ -17,25 +18,25 @@ class ProductInformation extends StatelessWidget {
           children: [
             InformationRow(
               icon: Icons.inventory_2_outlined,
-              label: 'Availability',
+              label: AppStrings.availability,
               value: '${product.availabilityStatus} (${product.stock})',
             ),
             const Divider(),
             InformationRow(
               icon: Icons.verified_user_outlined,
-              label: 'Warranty',
+              label: AppStrings.warranty,
               value: product.warrantyInformation,
             ),
             const Divider(),
             InformationRow(
               icon: Icons.assignment_return_outlined,
-              label: 'Returns',
+              label: AppStrings.returns,
               value: product.returnPolicy,
             ),
             const Divider(),
             InformationRow(
               icon: Icons.qr_code_2_rounded,
-              label: 'SKU',
+              label: AppStrings.sku,
               value: product.sku,
             ),
           ],

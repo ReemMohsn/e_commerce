@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_collection_card.dart';
@@ -27,12 +28,12 @@ class CategoriesSection extends StatelessWidget {
           case HomeRequestStatus.failure:
             content = HorizontalSectionError(
               message:
-                  state.categoriesErrorMessage ?? 'Unable to load categories.',
+                  state.categoriesErrorMessage ?? AppStrings.unableToLoadCategories,
               onRetry: context.read<HomeCubit>().fetchCategories,
             );
           case HomeRequestStatus.success:
             content = state.categories.isEmpty
-                ? const HorizontalEmptyMessage(message: 'No categories found')
+                ? const HorizontalEmptyMessage(message: AppStrings.noCategoriesFound)
                 : ListView.separated(
                     padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
                     scrollDirection: Axis.horizontal,
@@ -54,7 +55,7 @@ class CategoriesSection extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 14),
-              child: HomeSectionHeader(title: 'Categories'),
+              child: HomeSectionHeader(title: AppStrings.categories),
             ),
             SizedBox(height: 132, child: content),
           ],

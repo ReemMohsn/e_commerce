@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -20,12 +21,12 @@ class SearchWidget extends StatelessWidget {
       showCursor: false,
       onTap: onSearchTap,
       decoration: InputDecoration(
-        hintText: 'What are you looking for?',
+        hintText: AppStrings.whatAreYouLookingFor,
         prefixIcon: const Icon(Icons.search_rounded, size: 27),
         suffixIcon: Padding(
           padding: const EdgeInsets.all(6),
           child: IconButton(
-            tooltip: 'Filter products',
+            tooltip: AppStrings.filterProducts2,
             onPressed: onFilterTap ?? () {},
             style: IconButton.styleFrom(
               padding: EdgeInsets.zero,

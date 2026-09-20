@@ -1,7 +1,8 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/features/cart/presentation/views/widgets/cart_checkout_bar.dart';
 import 'package:e_commeric/features/cart/presentation/views/widgets/cart_product_card.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class CartContent extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Products on Cart',
+              AppStrings.productsOnCart,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),

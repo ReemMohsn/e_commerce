@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -35,14 +36,14 @@ class CartCheckoutBar extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Subtotal ($itemCount ${itemCount == 1 ? 'item' : 'items'})',
+                    AppStrings.subtotal(itemCount),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const Spacer(),
                   Text(
-                    '${subtotal.toStringAsFixed(2)} EGP',
+                    AppStrings.priceEgp(subtotal),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -54,7 +55,7 @@ class CartCheckoutBar extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: null,
-                  child: const Text('Checkout'),
+                  child: const Text(AppStrings.checkout),
                 ),
               ),
             ],

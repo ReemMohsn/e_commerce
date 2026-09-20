@@ -1,7 +1,8 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/services/app_services.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
 import 'package:e_commeric/features/cart/presentation/views/cart_view.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
 import 'package:e_commeric/features/favorit/presentation/views/favorite_view.dart';
 import 'package:e_commeric/features/favorit/presentation/views/widgets/favorite_action_listener.dart';
 import 'package:e_commeric/features/home/data/models/navigation_item_model.dart';
@@ -17,7 +18,7 @@ class MainHomeView extends StatelessWidget {
 
   static final List<NavigationItemModel> _items = [
     NavigationItemModel(
-      label: 'Home',
+      label: AppStrings.home,
       icon: Icons.home_outlined,
       selectedIcon: Icons.home_rounded,
       page: MultiBlocProvider(
@@ -38,7 +39,7 @@ class MainHomeView extends StatelessWidget {
       ),
     ),
     NavigationItemModel(
-      label: 'Cart',
+      label: AppStrings.cart,
       icon: Icons.shopping_cart_outlined,
       selectedIcon: Icons.shopping_cart_rounded,
       page: BlocProvider(
@@ -48,7 +49,7 @@ class MainHomeView extends StatelessWidget {
       ),
     ),
     NavigationItemModel(
-      label: 'Favorites',
+      label: AppStrings.favorites,
       icon: Icons.favorite_border_rounded,
       selectedIcon: Icons.favorite_rounded,
       page: BlocProvider(
@@ -58,7 +59,7 @@ class MainHomeView extends StatelessWidget {
       ),
     ),
     NavigationItemModel(
-      label: 'Menu',
+      label: AppStrings.menu,
       icon: Icons.menu_rounded,
       selectedIcon: Icons.menu_open_rounded,
       page: Placeholder(),

@@ -1,5 +1,7 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/services/app_services.dart';
+import 'package:e_commeric/features/onboarding/data/models/onboarding_page_model.dart';
 import 'package:e_commeric/features/onboarding/data/onboarding_pages.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_state.dart';
@@ -84,7 +86,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                               );
                             }
                           : context.read<OnboardingCubit>().nextPage,
-                      child: Text(isLastPage ? 'Get Start' : 'Next'),
+                      child: Text(
+                        isLastPage ? AppStrings.getStart : AppStrings.next,
+                      ),
                     ),
                   );
                 },

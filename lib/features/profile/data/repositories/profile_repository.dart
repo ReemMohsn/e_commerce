@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/constants/api_end_points.dart';
 import 'package:e_commeric/core/services/API/api_response.dart';
 import 'package:e_commeric/core/services/API/api_service.dart';
@@ -25,12 +26,12 @@ class ProfileRepository {
 
       return UserModel.fromJson(json);
     } on FormatException {
-      throw const CacheException('Your saved profile data is invalid.');
+      throw const CacheException(AppStrings.yourSavedProfileDataIsInvalid);
     } on PlatformException {
-      throw const CacheException('Unable to access your saved profile.');
+      throw const CacheException(AppStrings.unableToAccessYourSavedProfile);
     } catch (_) {
       throw const CacheException(
-        'Something went wrong while loading your profile.',
+        AppStrings.somethingWentWrongWhileLoadingYourProfile,
       );
     }
   }
@@ -53,8 +54,7 @@ class ProfileRepository {
       });
     } catch (_) {
       throw const CacheException(
-        'Your profile was updated, but could not be saved on this device. '
-        'Please sign in again to refresh your profile.',
+        AppStrings.yourProfileWasUpdatedButCouldNotBeSavedOnThisDevicePleaseSignInAgainToRefreshYourProfile,
       );
     }
 

@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_back_button.dart';
 import 'package:e_commeric/features/profile/presentation/cubit/profile_cubit.dart';
@@ -43,7 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
           child: AuthBackButton(),
         ),
         title: Text(
-          'My Profile',
+          AppStrings.myProfile,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         actions: [
@@ -82,7 +83,7 @@ class _ProfileViewState extends State<ProfileView> {
                           Icon(Icons.person_off_outlined, size: 48),
                           SizedBox(height: 12),
                           Text(
-                            'No profile data available.',
+                            AppStrings.noProfileDataAvailable,
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -104,7 +105,7 @@ class _ProfileViewState extends State<ProfileView> {
                             onPressed: () =>
                                 context.read<ProfileCubit>().getCurrentUser(),
                             icon: const Icon(Icons.refresh_rounded),
-                            label: const Text('Try Again'),
+                            label: const Text(AppStrings.tryAgain2),
                           ),
                         ],
                       ),
@@ -125,16 +126,16 @@ class _ProfileViewState extends State<ProfileView> {
                   children: [
                     ProfileMenuTile(
                       icon: Icons.edit_outlined,
-                      title: 'Edit Profile',
+                      title: AppStrings.editProfile,
                       onTap: _openEditProfile,
                     ),
                     const ProfileMenuTile(
                       icon: Icons.credit_card_outlined,
-                      title: 'Subscription & Payment',
+                      title: AppStrings.subscriptionPayment,
                     ),
                     ProfileToggleTile(
                       icon: Icons.notifications_none_rounded,
-                      title: 'App Notifications',
+                      title: AppStrings.appNotifications,
                       value: _notificationsEnabled,
                       onChanged: (value) {
                         setState(() => _notificationsEnabled = value);
@@ -142,7 +143,7 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     ProfileToggleTile(
                       icon: Icons.dark_mode_outlined,
-                      title: 'Dark Mode',
+                      title: AppStrings.darkMode,
                       value: _darkModeEnabled,
                       onChanged: (value) {
                         setState(() => _darkModeEnabled = value);
@@ -150,15 +151,15 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     const ProfileMenuTile(
                       icon: Icons.star_border_rounded,
-                      title: 'Rate Us',
+                      title: AppStrings.rateUs,
                     ),
                     const ProfileMenuTile(
                       icon: Icons.record_voice_over_outlined,
-                      title: 'Provide Feedback',
+                      title: AppStrings.provideFeedback,
                     ),
                     const ProfileMenuTile(
                       icon: Icons.logout_rounded,
-                      title: 'Log Out',
+                      title: AppStrings.logOut,
                       isDestructive: true,
                       showDivider: false,
                     ),

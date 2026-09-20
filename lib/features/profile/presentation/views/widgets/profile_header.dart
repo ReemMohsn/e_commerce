@@ -22,22 +22,23 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.theme.textTheme;
+    final scale = context.responsiveWidth(1);
 
     return SizedBox(
-      height: 268,
+      height: 268 * scale,
       width: double.infinity,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           const Positioned.fill(child: CustomPaint(painter: _OrbitPainter())),
           Positioned(
-            top: 49,
+            top: 49 * scale,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  width: 123,
-                  height: 123,
+                  width: 123 * scale,
+                  height: 123 * scale,
                   padding: const EdgeInsets.all(3),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
@@ -79,7 +80,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 184,
+            top: 184 * scale,
             left: 20,
             right: 20,
             child: Column(
@@ -115,22 +116,23 @@ class _OrbitPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, 133);
-    final orbitWidth = math.min(size.width - 42, 315.0);
+    final scale = size.height / 268;
+    final center = Offset(size.width / 2, 133 * scale);
+    final orbitWidth = math.min(size.width - 42, 315.0 * scale);
     final orbitPaint = Paint()
       ..color = AppColor.outlineSoft
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.35;
 
     canvas.drawOval(
-      Rect.fromCenter(center: center, width: orbitWidth, height: 216),
+      Rect.fromCenter(center: center, width: orbitWidth, height: 216 * scale),
       orbitPaint,
     );
     canvas.drawOval(
       Rect.fromCenter(
         center: center.translate(0, -1),
         width: orbitWidth - 14,
-        height: 226,
+        height: 226 * scale,
       ),
       orbitPaint,
     );
@@ -138,7 +140,7 @@ class _OrbitPainter extends CustomPainter {
       Rect.fromCenter(
         center: center.translate(0, -2),
         width: orbitWidth - 28,
-        height: 236,
+        height: 236 * scale,
       ),
       orbitPaint,
     );
@@ -147,10 +149,10 @@ class _OrbitPainter extends CustomPainter {
       ..color = AppColor.outlineSoft
       ..style = PaintingStyle.fill;
 
-    canvas.drawCircle(Offset(size.width * .18, 86), 8, dotPaint);
-    canvas.drawCircle(Offset(size.width * .83, 87), 10, dotPaint);
-    canvas.drawCircle(Offset(size.width * .15, 199), 10, dotPaint);
-    canvas.drawCircle(Offset(size.width * .78, 205), 11, dotPaint);
+    canvas.drawCircle(Offset(size.width * .18, 86 * scale), 8, dotPaint);
+    canvas.drawCircle(Offset(size.width * .83, 87 * scale), 10, dotPaint);
+    canvas.drawCircle(Offset(size.width * .15, 199 * scale), 10, dotPaint);
+    canvas.drawCircle(Offset(size.width * .78, 205 * scale), 11, dotPaint);
   }
 
   @override

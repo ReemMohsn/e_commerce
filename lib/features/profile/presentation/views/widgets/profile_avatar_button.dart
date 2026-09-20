@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class ProfileAvatarButton extends StatelessWidget {
     final text = fallbackText?.trim();
 
     return Tooltip(
-      message: 'Profile',
+      message: AppStrings.profile,
       child: Material(
         color: Colors.transparent,
         shape: const CircleBorder(),

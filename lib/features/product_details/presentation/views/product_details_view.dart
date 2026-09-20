@@ -1,9 +1,10 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_state.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
 import 'package:e_commeric/features/favorit/presentation/views/widgets/favorite_action_listener.dart';
 import 'package:e_commeric/features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'package:e_commeric/features/product_details/presentation/cubit/product_details_state.dart';
@@ -60,7 +61,7 @@ class ProductDetailsView extends StatelessWidget {
               body = HomeMessage(
                 icon: Icons.cloud_off_outlined,
                 message: state.errorMessage,
-                actionLabel: 'Retry',
+                actionLabel: AppStrings.retry,
                 onAction: cubit.retry,
               );
               purchaseBar = null;
@@ -84,7 +85,7 @@ class ProductDetailsView extends StatelessWidget {
                       ),
                     ),
                     child: IconButton(
-                      tooltip: 'Back',
+                      tooltip: AppStrings.back,
                       onPressed: () => Navigator.maybePop(context),
                       icon: const Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -94,7 +95,7 @@ class ProductDetailsView extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  'Product Details',
+                  AppStrings.productDetails,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 actions: [

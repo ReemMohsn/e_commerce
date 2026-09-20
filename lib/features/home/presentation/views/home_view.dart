@@ -1,9 +1,10 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_state.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/brands_section.dart';
@@ -147,7 +148,7 @@ class _HomeViewState extends State<HomeView> {
             const SliverPadding(
               padding: EdgeInsets.fromLTRB(14, 12, 14, 10),
               sliver: SliverToBoxAdapter(
-                child: HomeSectionHeader(title: 'Products'),
+                child: HomeSectionHeader(title: AppStrings.products),
               ),
             ),
             const ProductsSection(),

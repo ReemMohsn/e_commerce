@@ -1,3 +1,5 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +35,15 @@ class ProductPurchaseBar extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                width: 112,
+                width: context.responsiveWidth(112),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Price', style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      AppStrings.price,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     Text(
                       _formatPrice(product.priceAfterDiscount),
                       maxLines: 1,
@@ -70,7 +75,7 @@ class ProductPurchaseBar extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.add_shopping_cart_rounded),
-                  label: const Text('Add to Cart'),
+                  label: const Text(AppStrings.addToCart),
                 ),
               ),
             ],
@@ -80,5 +85,5 @@ class ProductPurchaseBar extends StatelessWidget {
     );
   }
 
-  String _formatPrice(double value) => '${value.toStringAsFixed(2)} EGP';
+  String _formatPrice(double value) => AppStrings.priceEgp(value);
 }

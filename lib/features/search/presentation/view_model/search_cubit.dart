@@ -1,7 +1,9 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'dart:async';
 
 import 'package:e_commeric/core/services/errors/exception.dart';
 import 'package:e_commeric/features/home/data/models/product_model.dart';
+import 'package:e_commeric/features/search/data/models/search_products_request_model.dart';
 import 'package:e_commeric/features/search/data/repositories/search_repository.dart';
 import 'package:e_commeric/features/search/presentation/view_model/search_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,9 +60,7 @@ class SearchCubit extends Cubit<SearchState> {
 
     try {
       final response = await _repository.searchProducts(
-        search: query,
-        skip: 0,
-        limit: pageSize,
+        SearchProductsRequestModel(search: query, skip: 0, limit: pageSize),
       );
 
       if (isClosed || version != _searchVersion) return;
@@ -89,7 +89,7 @@ class SearchCubit extends Cubit<SearchState> {
       emit(
         SearchFailure(
           query: query,
-          errorMessage: 'Unable to search products. Please try again.',
+          errorMessage: AppStrings.unableToSearchProductsPleaseTryAgain,
         ),
       );
     }
@@ -113,9 +113,11 @@ class SearchCubit extends Cubit<SearchState> {
 
     try {
       final response = await _repository.searchProducts(
-        search: currentState.query,
-        skip: currentState.nextSkip,
-        limit: pageSize,
+        SearchProductsRequestModel(
+          search: currentState.query,
+          skip: currentState.nextSkip,
+          limit: pageSize,
+        ),
       );
 
       if (isClosed || version != _searchVersion) return;
@@ -152,7 +154,7 @@ class SearchCubit extends Cubit<SearchState> {
         currentState.copyWith(
           isLoadingMore: false,
           paginationErrorMessage:
-              'Unable to load more products. Please try again.',
+              AppStrings.unableToLoadMoreProductsPleaseTryAgain,
         ),
       );
     }

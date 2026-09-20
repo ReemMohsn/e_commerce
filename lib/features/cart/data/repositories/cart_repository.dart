@@ -25,7 +25,6 @@ class CartRepository {
       fromJson: (data) {
         final json = data as Map<String, dynamic>;
         final products = json['list'] as List;
-
         return products
             .map(
               (product) => ProductModel.fromJson(

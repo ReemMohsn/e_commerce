@@ -1,6 +1,7 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_state.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_state.dart';
 import 'package:e_commeric/features/cart/presentation/views/widgets/cart_content.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
 import 'package:e_commeric/features/profile/presentation/cubit/profile_cubit.dart';
@@ -25,7 +26,10 @@ class CartView extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 72,
         centerTitle: true,
-        title: Text('Cart', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text(
+          AppStrings.cart,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 14),
@@ -47,7 +51,7 @@ class CartView extends StatelessWidget {
             return HomeMessage(
               icon: Icons.cloud_off_outlined,
               message: state.errorMessage,
-              actionLabel: 'Retry',
+              actionLabel: AppStrings.retry,
               onAction: context.read<CartCubit>().getCart,
             );
           }
@@ -55,7 +59,7 @@ class CartView extends StatelessWidget {
           if (state is CartEmpty) {
             return const HomeMessage(
               icon: Icons.shopping_cart_outlined,
-              message: 'Your cart is empty.',
+              message: AppStrings.yourCartIsEmpty,
             );
           }
 

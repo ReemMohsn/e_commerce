@@ -1,10 +1,13 @@
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_illustration.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/constants/app_image.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/password_reset_cubit.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/password_reset_state.dart';
+import 'package:e_commeric/features/auth/data/models/verify_code_request_model.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/password_reset_cubit.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/password_reset_state.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_page_header.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/otp_code_field.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +41,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
     }
 
     context.read<PasswordResetCubit>().verifyCode(
-      email: widget.email,
-      code: _code,
+      VerifyCodeRequestModel(email: widget.email, code: _code),
     );
   }
 
@@ -80,22 +82,16 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const AuthPageHeader(title: 'Verification Code'),
+                  const AuthPageHeader(title: AppStrings.verificationCode),
                   const SizedBox(height: 42),
-                  Center(
-                    child: SizedBox(
-                      height: 256,
-                      width: 249,
-                      child: Image.asset(
-                        AppImage.verificationCodeWithEmail,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  AuthIllustration(
+                    asset: AppImage.verificationCodeWithEmail,
+                    designWidth: 249,
                   ),
                   const SizedBox(height: 26),
                   Text.rich(
                     TextSpan(
-                      text: 'Please enter the 4 digit code\nsent to: ',
+                      text: AppStrings.pleaseEnterThe4DigitCodeSentTo,
                       children: [
                         TextSpan(
                           text: widget.email,
@@ -111,7 +107,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _verifyCode,
-                    child: const Text('Verify Code'),
+                    child: const Text(AppStrings.verifyCode),
                   ),
                   const SizedBox(height: 19),
                   BlocBuilder<PasswordResetCubit, PasswordResetState>(
@@ -136,7 +132,7 @@ class _VerificationCodeViewState extends State<VerificationCodeView> {
                                       .resendCode(email: widget.email)
                                 : null,
                             child: Text(
-                              'Resend Code',
+                              AppStrings.resendCode,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,

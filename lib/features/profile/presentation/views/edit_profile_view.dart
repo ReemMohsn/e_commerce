@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/common/widgets/app_network_image.dart';
 import 'package:e_commeric/core/extensions/screen_context_extension.dart';
@@ -94,7 +95,7 @@ class _EditProfileViewState extends State<EditProfileView> {
             child: AuthBackButton(),
           ),
           title: Text(
-            'Edit Profile',
+            AppStrings.editProfile,
             style: context.theme.textTheme.headlineSmall,
           ),
         ),
@@ -118,7 +119,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                       children: [
                         Center(
                           child: Semantics(
-                            label: 'Profile photo',
+                            label: AppStrings.profilePhoto,
                             image: true,
                             child: SizedBox.square(
                               dimension: 104,
@@ -133,18 +134,18 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Update your personal information below.',
+                          AppStrings.updateYourPersonalInformationBelow,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 28),
                         AuthTextField(
                           controller: _nameController,
-                          labelText: 'Full Name',
-                          hintText: 'Your full name',
+                          labelText: AppStrings.fullName,
+                          hintText: AppStrings.yourFullName,
                           textInputAction: TextInputAction.next,
                           validator: (value) =>
-                              AppValidator.requiredField(value, field: 'Name'),
+                              AppValidator.requiredField(value, field: AppStrings.name),
                           autofillHints: const [AutofillHints.name],
                           prefixIcon: const Icon(
                             Icons.person_outline_rounded,
@@ -154,8 +155,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                         const SizedBox(height: 12),
                         AuthTextField(
                           controller: _emailController,
-                          labelText: 'Email',
-                          hintText: 'You@gmail.com',
+                          labelText: AppStrings.email,
+                          hintText: AppStrings.emailHint,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           validator: AppValidator.email,
@@ -174,8 +175,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                         const SizedBox(height: 12),
                         AuthTextField(
                           controller: _addressController,
-                          labelText: 'Address',
-                          hintText: 'Your address',
+                          labelText: AppStrings.address,
+                          hintText: AppStrings.yourAddress,
                           keyboardType: TextInputType.streetAddress,
                           textInputAction: TextInputAction.done,
                           autofillHints: const [
@@ -190,7 +191,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: _saveProfile,
-                          child: const Text('Save Changes'),
+                          child: const Text(AppStrings.saveChanges),
                         ),
                       ],
                     ),

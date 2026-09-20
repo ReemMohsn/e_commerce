@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 class ErrorModel {
   const ErrorModel({required this.statusCode, required this.message});
 
@@ -13,7 +14,7 @@ class ErrorModel {
       statusCode: statusCode ?? 0,
       message: rawMessage is String && rawMessage.trim().isNotEmpty
           ? rawMessage
-          : 'Something went wrong. Please try again.',
+          : AppStrings.somethingWentWrongPleaseTryAgain,
     );
   }
 }

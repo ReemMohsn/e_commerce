@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/services/errors/cache_exception.dart';
 import 'package:e_commeric/core/services/errors/exception.dart';
 import 'package:e_commeric/features/profile/data/models/user_model.dart';
@@ -24,7 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     } on CacheException catch (error) {
       emit(ProfileFailure(errorMessage: error.message));
     } catch (error) {
-      emit(ProfileFailure(errorMessage: 'An unexpected error occurred.'));
+      emit(ProfileFailure(errorMessage: AppStrings.anUnexpectedErrorOccurred));
     }
   }
 
@@ -40,7 +41,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (_) {
       emit(
         ProfileFailure(
-          errorMessage: 'Unable to update your profile. Please try again.',
+          errorMessage: AppStrings.unableToUpdateYourProfilePleaseTryAgain,
         ),
       );
     }

@@ -1,8 +1,10 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/auth_state.dart';
+import 'package:e_commeric/features/auth/data/models/sign_up_request_model.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_state.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_logo.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/password_text_field.dart';
@@ -40,11 +42,13 @@ class _SignUpViewState extends State<SignUpView> {
   void _submit() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     context.read<AuthCubit>().signUp(
-      name: _nameController.text,
-      phone: _phoneController.text,
-      email: _emailController.text,
-      password: _passwordController.text,
-      confirmPassword: _confirmPasswordController.text,
+      SignUpRequestModel(
+        name: _nameController.text,
+        phone: _phoneController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        confirmPassword: _confirmPasswordController.text,
+      ),
     );
   }
 
@@ -79,18 +83,20 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 12),
                     AuthTextField(
                       controller: _nameController,
-                      labelText: 'Your Name',
-                      hintText: 'Full Name',
+                      labelText: AppStrings.yourName,
+                      hintText: AppStrings.fullName,
                       textInputAction: TextInputAction.next,
-                      validator: (value) =>
-                          AppValidator.requiredField(value, field: 'Name'),
+                      validator: (value) => AppValidator.requiredField(
+                        value,
+                        field: AppStrings.name,
+                      ),
                       prefixIcon: const Icon(Icons.edit_outlined, size: 20),
                     ),
                     const SizedBox(height: 8),
                     AuthTextField(
                       controller: _usernameController,
-                      labelText: 'Username',
-                      hintText: 'Username',
+                      labelText: AppStrings.username,
+                      hintText: AppStrings.username,
                       textInputAction: TextInputAction.next,
                       prefixIcon: const Icon(
                         Icons.person_outline_rounded,
@@ -106,8 +112,8 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 8),
                     AuthTextField(
                       controller: _emailController,
-                      labelText: 'Email',
-                      hintText: 'You@gmail.com',
+                      labelText: AppStrings.email,
+                      hintText: AppStrings.emailHint,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       validator: AppValidator.email,
@@ -116,15 +122,15 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 8),
                     PasswordTextField(
                       controller: _passwordController,
-                      labelText: 'Password',
+                      labelText: AppStrings.password,
                       textInputAction: TextInputAction.next,
                       validator: AppValidator.password,
                     ),
                     const SizedBox(height: 8),
                     PasswordTextField(
                       controller: _confirmPasswordController,
-                      labelText: 'Confirm Password',
-                      hintText: 'Confirm Password',
+                      labelText: AppStrings.confirmPassword2,
+                      hintText: AppStrings.confirmPassword2,
                       textInputAction: TextInputAction.done,
                       validator: (value) => AppValidator.confirmPassword(
                         value,
@@ -135,7 +141,7 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: _submit,
-                      child: const Text('Sign Up'),
+                      child: const Text(AppStrings.signUp),
                     ),
                     const SizedBox(height: 12),
                   ],

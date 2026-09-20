@@ -1,7 +1,8 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:e_commeric/features/favorit/presentation/views/widgets/pagination_footer.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_section_header.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/product_item_card.dart';
@@ -26,7 +27,7 @@ class FavoriteContent extends StatelessWidget {
         const SliverPadding(
           padding: EdgeInsets.fromLTRB(14, 8, 14, 12),
           sliver: SliverToBoxAdapter(
-            child: HomeSectionHeader(title: 'All Products'),
+            child: HomeSectionHeader(title: AppStrings.allProducts),
           ),
         ),
         SliverPadding(

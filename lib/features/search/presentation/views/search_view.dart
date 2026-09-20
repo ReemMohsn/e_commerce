@@ -1,8 +1,9 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/services/app_services.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:e_commeric/features/favorit/presentation/views/widgets/favorite_action_listener.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/product_item_card.dart';
@@ -98,7 +99,7 @@ class _SearchViewState extends State<SearchView> {
                 onChanged: _onSearchChanged,
                 onSubmitted: context.read<SearchCubit>().submitSearch,
                 decoration: const InputDecoration(
-                  hintText: 'What are you looking for?',
+                  hintText: AppStrings.whatAreYouLookingFor,
                   prefixIcon: Icon(Icons.search_rounded, size: 27),
                 ),
               ),
@@ -109,7 +110,7 @@ class _SearchViewState extends State<SearchView> {
                   if (state is SearchInitial) {
                     return const HomeMessage(
                       icon: Icons.search_rounded,
-                      message: 'Type a product name to start searching.',
+                      message: AppStrings.typeAProductNameToStartSearching,
                     );
                   }
 
@@ -120,7 +121,7 @@ class _SearchViewState extends State<SearchView> {
                   if (state is SearchEmpty) {
                     return HomeMessage(
                       icon: Icons.search_off_rounded,
-                      message: 'No products found matching "${state.query}".',
+                      message: AppStrings.noSearchResults(state.query),
                     );
                   }
 
@@ -128,7 +129,7 @@ class _SearchViewState extends State<SearchView> {
                     return HomeMessage(
                       icon: Icons.cloud_off_outlined,
                       message: state.errorMessage,
-                      actionLabel: 'Retry',
+                      actionLabel: AppStrings.retry,
                       onAction: context.read<SearchCubit>().retrySearch,
                     );
                   }
@@ -151,7 +152,7 @@ class _SearchViewState extends State<SearchView> {
           padding: const EdgeInsets.fromLTRB(14, 0, 14, 10),
           sliver: SliverToBoxAdapter(
             child: Text(
-              'Search Results',
+              AppStrings.searchResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(color: AppColor.textPrimary),

@@ -1,11 +1,11 @@
+import 'package:e_commeric/features/onboarding/data/onboarding_pages.dart';
+import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'onboarding_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit() : super(const OnboardingInitial());
 
-  static const int pagesCount = 3;
+  int pagesCount = onboardingPages.length;
 
   void nextPage() {
     final nextIndex = state.currentIndex + 1;

@@ -1,7 +1,8 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_cubit.dart';
-import 'package:e_commeric/features/favorit/presentation/cubit/favorite_state.dart';
+import 'package:e_commeric/features/cart/presentation/view_model/cart_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_cubit.dart';
+import 'package:e_commeric/features/favorit/presentation/view_model/favorite_state.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_message.dart';
@@ -38,8 +39,9 @@ class ProductsSection extends StatelessWidget {
                 child: HomeMessage(
                   icon: Icons.cloud_off_outlined,
                   message:
-                      state.productsErrorMessage ?? 'Unable to load products.',
-                  actionLabel: 'Retry',
+                      state.productsErrorMessage ??
+                      AppStrings.unableToLoadProducts,
+                  actionLabel: AppStrings.retry,
                   onAction: context.read<HomeCubit>().fetchProducts,
                 ),
               ),
@@ -55,13 +57,13 @@ class ProductsSection extends StatelessWidget {
                       ? HomeMessage(
                           icon: Icons.filter_alt_off_outlined,
                           message:
-                              'No products found for the selected filters.',
-                          actionLabel: 'Clear Filters',
+                              AppStrings.noProductsFoundForTheSelectedFilters,
+                          actionLabel: AppStrings.clearFilters,
                           onAction: context.read<HomeCubit>().clearFilters,
                         )
                       : const HomeMessage(
                           icon: Icons.inventory_2_outlined,
-                          message: 'No products are available right now.',
+                          message: AppStrings.noProductsAreAvailableRightNow,
                         ),
                 ),
               );

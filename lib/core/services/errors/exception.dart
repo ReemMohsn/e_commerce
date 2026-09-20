@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commeric/core/services/errors/errormodel.dart';
 
@@ -22,12 +23,12 @@ Never handleDioExceptions(DioException error) {
       throw const ServerException(
         ErrorModel(
           statusCode: 0,
-          message: 'Unable to connect. Please check your internet connection.',
+          message: AppStrings.unableToConnectPleaseCheckYourInternetConnection,
         ),
       );
     case DioExceptionType.cancel:
       throw const ServerException(
-        ErrorModel(statusCode: 0, message: 'The request was cancelled.'),
+        ErrorModel(statusCode: 0, message: AppStrings.theRequestWasCancelled),
       );
     case DioExceptionType.badResponse:
       throw ServerException(
@@ -41,7 +42,7 @@ Never handleDioExceptions(DioException error) {
       throw const ServerException(
         ErrorModel(
           statusCode: 0,
-          message: 'An unexpected error occurred. Please try again.',
+          message: AppStrings.anUnexpectedErrorOccurredPleaseTryAgain,
         ),
       );
   }

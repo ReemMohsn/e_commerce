@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,7 @@ class PhoneTextField extends StatelessWidget {
   const PhoneTextField({
     super.key,
     required this.controller,
-    this.labelText = 'Phone Number',
+    this.labelText = AppStrings.phoneNumber2,
     this.validator,
     this.textInputAction,
   });
@@ -20,7 +21,7 @@ class PhoneTextField extends StatelessWidget {
     return AuthTextField(
       controller: controller,
       labelText: labelText,
-      hintText: '+20 1501142409',
+      hintText: AppStrings.phoneHint,
       keyboardType: TextInputType.phone,
       textInputAction: textInputAction,
       validator: validator,

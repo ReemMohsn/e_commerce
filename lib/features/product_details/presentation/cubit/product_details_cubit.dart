@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/services/errors/exception.dart';
 import 'package:e_commeric/features/product_details/data/repositories/product_details_repository.dart';
 import 'package:e_commeric/features/product_details/presentation/cubit/product_details_state.dart';
@@ -21,7 +22,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       if (product == null) {
         emit(
           const ProductDetailsFailure(
-            errorMessage: 'Product details are not available.',
+            errorMessage: AppStrings.productDetailsAreNotAvailable,
           ),
         );
         return;
@@ -33,7 +34,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     } catch (_) {
       emit(
         const ProductDetailsFailure(
-          errorMessage: 'Unable to load product details. Please try again.',
+          errorMessage: AppStrings.unableToLoadProductDetailsPleaseTryAgain,
         ),
       );
     }

@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ class PasswordTextField extends StatefulWidget {
     super.key,
     required this.controller,
     this.labelText,
-    this.hintText = 'Password',
+    this.hintText = AppStrings.password,
     this.textInputAction,
     this.validator,
     this.onFieldSubmitted,

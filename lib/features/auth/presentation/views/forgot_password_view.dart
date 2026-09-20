@@ -1,9 +1,11 @@
+import 'package:e_commeric/features/auth/presentation/views/widgets/auth_illustration.dart';
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/constants/app_image.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/password_reset_cubit.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/password_reset_state.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/password_reset_cubit.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/password_reset_state.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_page_header.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
@@ -61,30 +63,24 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const AuthPageHeader(title: 'Forgot Password'),
+                    const AuthPageHeader(title: AppStrings.forgotPassword),
                     const SizedBox(height: 42),
-                    Center(
-                      child: SizedBox(
-                        height: 256,
-                        width: 229,
-                        child: Image.asset(
-                          AppImage.forgotPasswordWithEmail,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                    AuthIllustration(
+                      asset: AppImage.forgotPasswordWithEmail,
+                      designWidth: 229,
                     ),
                     const SizedBox(height: 26),
                     Text(
-                      'Please enter your email address to\n'
-                      'receive a verification code',
+                      AppStrings
+                          .pleaseEnterYourEmailAddressToReceiveAVerificationCode,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 26),
                     AuthTextField(
                       controller: _emailController,
-                      labelText: 'Email',
-                      hintText: 'You@gmail.com',
+                      labelText: AppStrings.email,
+                      hintText: AppStrings.emailHint,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
                       validator: AppValidator.email,
@@ -94,7 +90,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     const SizedBox(height: 18),
                     ElevatedButton(
                       onPressed: _sendCode,
-                      child: const Text('Send Code'),
+                      child: const Text(AppStrings.sendCode),
                     ),
                   ],
                 ),

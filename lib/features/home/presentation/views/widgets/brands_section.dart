@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_cubit.dart';
 import 'package:e_commeric/features/home/presentation/view_model/home_state.dart';
 import 'package:e_commeric/features/home/presentation/views/widgets/home_collection_card.dart';
@@ -26,12 +27,12 @@ class BrandsSection extends StatelessWidget {
             content = const Center(child: CircularProgressIndicator());
           case HomeRequestStatus.failure:
             content = HorizontalSectionError(
-              message: state.brandsErrorMessage ?? 'Unable to load brands.',
+              message: state.brandsErrorMessage ?? AppStrings.unableToLoadBrands,
               onRetry: context.read<HomeCubit>().fetchBrands,
             );
           case HomeRequestStatus.success:
             content = state.brands.isEmpty
-                ? const HorizontalEmptyMessage(message: 'No brands found')
+                ? const HorizontalEmptyMessage(message: AppStrings.noBrandsFound)
                 : ListView.separated(
                     padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
                     scrollDirection: Axis.horizontal,
@@ -54,7 +55,7 @@ class BrandsSection extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.fromLTRB(14, 12, 14, 0),
-              child: HomeSectionHeader(title: 'Brands'),
+              child: HomeSectionHeader(title: AppStrings.brands),
             ),
             SizedBox(height: 132, child: content),
           ],

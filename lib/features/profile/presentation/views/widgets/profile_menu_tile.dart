@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/extensions/screen_context_extension.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +29,10 @@ class ProfileMenuTile extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            child: SizedBox(
-              height: 52,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: context.responsiveWidth(52).clamp(48.0, 64.0),
+              ),
               child: Row(
                 children: [
                   Icon(icon, size: 24, color: color),
@@ -77,8 +80,10 @@ class ProfileToggleTile extends StatelessWidget {
       children: [
         InkWell(
           onTap: () => onChanged(!value),
-          child: SizedBox(
-            height: 52,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: context.responsiveWidth(52).clamp(48.0, 64.0),
+            ),
             child: Row(
               children: [
                 const SizedBox(width: 1),

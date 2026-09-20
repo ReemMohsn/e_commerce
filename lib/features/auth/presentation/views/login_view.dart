@@ -1,9 +1,11 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/common/utils/app_validator.dart';
 import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:e_commeric/features/auth/presentation/cubit/auth_state.dart';
+import 'package:e_commeric/features/auth/data/models/sign_in_request_model.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_state.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_logo.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_text_field.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/password_text_field.dart';
@@ -32,8 +34,10 @@ class _LoginViewState extends State<LoginView> {
   void _submit() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     context.read<AuthCubit>().signIn(
-      email: _emailController.text,
-      password: _passwordController.text,
+      SignInRequestModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+      ),
     );
   }
 
@@ -67,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(height: 68),
                       AuthTextField(
                         controller: _emailController,
-                        hintText: 'Username or Email',
+                        hintText: AppStrings.usernameOrEmail,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         validator: AppValidator.email,
@@ -87,21 +91,21 @@ class _LoginViewState extends State<LoginView> {
                             onPressed: () => Navigator.of(
                               context,
                             ).pushNamed(AppRoute.forgotPassword),
-                            child: const Text('Forgot Password?'),
+                            child: const Text(AppStrings.forgotPassword2),
                           ),
                         ],
                       ),
                       const SizedBox(height: 7),
                       ElevatedButton(
                         onPressed: _submit,
-                        child: const Text('Log In'),
+                        child: const Text(AppStrings.logIn),
                       ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Are you new in Marketi ',
+                            AppStrings.areYouNewInMarketi,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           GestureDetector(
@@ -109,7 +113,7 @@ class _LoginViewState extends State<LoginView> {
                               context,
                             ).pushNamed(AppRoute.signUp),
                             child: const Text(
-                              'register?',
+                              AppStrings.register,
                               style: TextStyle(
                                 color: AppColor.primary,
                                 fontSize: 12,

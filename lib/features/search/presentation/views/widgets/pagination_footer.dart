@@ -1,3 +1,4 @@
+import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/themes/app_color.dart';
 import 'package:e_commeric/features/search/presentation/view_model/search_cubit.dart';
 import 'package:e_commeric/features/search/presentation/view_model/search_state.dart';
@@ -39,7 +40,7 @@ class PaginationFooter extends StatelessWidget {
             ),
             TextButton(
               onPressed: context.read<SearchCubit>().retryPagination,
-              child: const Text('Try again'),
+              child: const Text(AppStrings.tryAgain),
             ),
           ],
         ),

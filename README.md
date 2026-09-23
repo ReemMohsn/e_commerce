@@ -19,6 +19,7 @@
   <a href="#about">About</a> ·
   <a href="#features">Features</a> ·
   <a href="#learning">Learning Experience</a> ·
+  <a href="#screenshots">Screenshots</a> ·
   <a href="#artwork">App Artwork</a> ·
   <a href="#architecture">Architecture</a> ·
   <a href="#tech-stack">Tech Stack</a> ·
@@ -64,6 +65,48 @@ The project provided practical experience with:
 - Saving session data, onboarding progress, and profile information with **SharedPreferences**.
 - Implementing navigation, form validation, pagination, and loading, empty, and error states.
 - Organizing the code by feature to keep related screens, state logic, and data operations together.
+
+<a id="screenshots"></a>
+
+## 📱 Screenshots
+
+A look at the app screens:
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٢٩-٧٣٢_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٢٩-٧٣٢_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 1" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٣٤-٢٦٦_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٣٤-٢٦٦_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 2" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٤٢-٠٤٧_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٤٢-٠٤٧_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 3" width="240" /></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٥٧-٤٦٨_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤٠-٥٧-٤٦٨_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 4" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤١-٠٥-٠٤٩_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-٠٩-٤١-٠٥-٠٤٩_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 5" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٢٤-٠٥١_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٢٤-٠٥١_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 6" width="240" /></a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٢٩-٣٨٧_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٢٩-٣٨٧_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 7" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٣٦-٥٠٠_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٣٦-٥٠٠_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 8" width="240" /></a>
+    </td>
+    <td align="center" width="33%">
+      <a href="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٤٥-١٥٠_com.example.e_commeric.jpg.jpeg"><img src="assets/images/screen_shotes/Screenshot_٢٠٢٦-٠٩-٢٣-١٠-٠٠-٤٥-١٥٠_com.example.e_commeric.jpg.jpeg" alt="Marketi app screenshot 9" width="240" /></a>
+    </td>
+  </tr>
+</table>
 
 <a id="artwork"></a>
 

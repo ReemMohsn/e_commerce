@@ -1,5 +1,8 @@
 import 'package:e_commeric/core/constants/app_strings.dart';
+import 'package:e_commeric/core/extensions/snack_bar_context_extension.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:e_commeric/features/auth/presentation/view_model/auth_state.dart';
 import 'package:e_commeric/features/auth/presentation/views/widgets/auth_back_button.dart';
 import 'package:e_commeric/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:e_commeric/features/profile/presentation/cubit/profile_state.dart';
@@ -157,11 +160,37 @@ class _ProfileViewState extends State<ProfileView> {
                       icon: Icons.record_voice_over_outlined,
                       title: AppStrings.provideFeedback,
                     ),
-                    const ProfileMenuTile(
-                      icon: Icons.logout_rounded,
-                      title: AppStrings.logOut,
-                      isDestructive: true,
-                      showDivider: false,
+                    BlocConsumer<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is SignOutSuccess) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            AppRoute.login,
+                            (route) => false,
+                          );
+                        } else if (state is SignOutFailure) {
+                          context.showErrorSnackBar(state.errorMessage);
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is SignOutLoading) {
+                          return const Padding(
+                            padding: EdgeInsets.all(14),
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                        return ProfileMenuTile(
+                          icon: Icons.logout_rounded,
+                          title: AppStrings.logOut,
+                          isDestructive: true,
+                          showDivider: false,
+                          onTap: () {
+                            final authCubit = context.read<AuthCubit>();
+                            if (authCubit.state is! SignOutLoading) {
+                              authCubit.signOut();
+                            }
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),

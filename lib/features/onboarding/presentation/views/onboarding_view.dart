@@ -1,7 +1,6 @@
 import 'package:e_commeric/core/constants/app_strings.dart';
 import 'package:e_commeric/core/routing/app_route.dart';
 import 'package:e_commeric/core/services/app_services.dart';
-import 'package:e_commeric/features/onboarding/data/models/onboarding_page_model.dart';
 import 'package:e_commeric/features/onboarding/data/onboarding_pages.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import 'package:e_commeric/features/onboarding/presentation/cubit/onboarding_state.dart';

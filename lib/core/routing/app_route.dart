@@ -180,9 +180,17 @@ class AppRouter {
       case AppRoute.profile:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (_) =>
-                ProfileCubit(AppServices.profileRepository)..getCurrentUser(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => AuthCubit(AppServices.authRepository),
+              ),
+              BlocProvider(
+                create: (_) =>
+                    ProfileCubit(AppServices.profileRepository)
+                      ..getCurrentUser(),
+              ),
+            ],
             child: const ProfileView(),
           ),
         );
